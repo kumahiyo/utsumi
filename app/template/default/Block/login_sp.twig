@@ -1,0 +1,97 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<div class="ec-headerLinkArea">
+    <div class="ec-headerLink__list">
+        <a class="ec-headerLink__item" href="{{ url('homepage') }}">
+            <div class="ec-headerLink__icon">
+                <i class="fas fa-home fa-fw"></i>
+            </div>
+            <span>{{ 'ホーム'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('product_list') }}">
+            <span>{{ '商品一覧'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" style="display: none;" href="{{ url('product_list') }}?category_id={{ treatment_menu_id }}">
+            <span>{{ '施術メニュー'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('user_data', {'route': 'teiki'}) }}">
+            <span>{{ '定期購入'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('mypage') }}">
+            <span>{{ '注文履歴'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('help_guide') }}">
+            <span>{{ '初めての方へ'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('contact') }}">
+            <span>{{ 'お問い合わせ'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('help_about') }}">
+            <span>{{ '会社概要'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('help_agreement') }}">
+            <span>{{ '利用規約'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('user_data', {'route': 'faq'}) }}">
+            <span>{{ 'よくある質問'|trans }}</span>
+        </a>
+        <a class="ec-headerLink__item" href="{{ url('cart') }}">
+            <div class="ec-headerLink__icon">
+                <i class="fas fa-shopping-cart fa-fw"></i>
+            </div>
+            <span>{{ 'カートを見る'|trans }}</span>
+        </a>
+        {% if is_granted('ROLE_USER') %}
+            <a class="ec-headerLink__item" href="{{ url('mypage') }}">
+                <div class="ec-headerLink__icon">
+                    <i class="fas fa-user fa-fw"></i>
+                </div>
+                <span>{{ 'マイページ'|trans }}</span>
+            </a>
+            {% if BaseInfo.option_favorite_product %}
+                <a class="ec-headerLink__item" href="{{ url('mypage_favorite') }}">
+                    <div class="ec-headerLink__icon">
+                        <i class="fas fa-heart fa-fw"></i>
+                    </div>
+                    <span>{{ 'お気に入り'|trans }}</span>
+                </a>
+            {% endif %}
+            <a class="ec-headerLink__item" href="{{ url('logout') }}">
+                <div class="ec-headerLink__icon">
+                    <i class="fas fa-lock fa-fw"></i>
+                </div>
+                <span>{{ 'ログアウト'|trans }}</span>
+            </a>
+        {% else %}
+            <a class="ec-headerLink__item" href="{{ url('entry') }}">
+                <div class="ec-headerLink__icon">
+                    <i class="fas fa-user fa-fw"></i>
+                </div>
+                <span>{{ '新規会員登録'|trans }}</span>
+            </a>
+            {% if BaseInfo.option_favorite_product %}
+                <a class="ec-headerLink__item" href="{{ url('mypage_favorite') }}">
+                    <div class="ec-headerLink__icon">
+                        <i class="fas fa-heart fa-fw"></i>
+                    </div>
+                    <span>{{ 'お気に入り'|trans }}</span>
+                </a>
+            {% endif %}
+            <a class="ec-headerLink__item" href="{{ url('mypage_login') }}">
+                <div class="ec-headerLink__icon">
+                    <i class="fas fa-lock fa-fw"></i>
+                </div>
+                <span>{{ 'ログイン'|trans }}</span>
+            </a>
+        {% endif %}
+    </div>
+</div>

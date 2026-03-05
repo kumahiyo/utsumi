@@ -1,0 +1,37 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends 'default_frame.twig' %}
+
+{% form_theme form 'Form/form_div_layout.twig' %}
+
+{% block javascript %}
+    <script src="//yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+{% endblock javascript %}
+
+{% block main %}
+
+    <div class="ec-contactRole">
+        <div class="ec-pageHeader">
+            <h1>{{ 'お問い合わせ'|trans }}</h1>
+        </div>
+        <div class="ec-off1Grid">
+            <div class="ec-off1Grid__cell">
+                    <span class="p-country-name" style="display:none;">Japan</span>
+                    <p class="ec-para-normal">{{ 'お問い合わせは内海美容室公式LINEを友だち追加してご連絡ください。
+また、休業日は翌営業日以降の対応となりますのでご了承ください。
+'|trans|nl2br }}</p>
+                <p><a href="https://lin.ee/cncjOYx"><img src="{{ asset('assets/img/top/slide003.jpg') }}"></a></p>
+                <p><a href="https://lin.ee/cncjOYx">内海美容室 公式LINEはこちら</a></p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

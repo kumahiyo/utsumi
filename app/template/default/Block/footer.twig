@@ -1,0 +1,48 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+<footer id="footer--UT">
+  <div class="L-inner">
+    <section class="footerTop">
+      <div class="flexContainer__start">
+        <figure class="footerLogo--UT"><a href="https://www.utsumibiyou-order.com"><img src="{{ asset('assets/img/common/footer-logo.png', 'user_data') }}" alt="" width="188"></a></figure>
+        <div>
+          <p>
+            {% if BaseInfo.postal_code|default is not empty %}
+              {{ '〒'|trans }}{{ BaseInfo.postal_code }}　{{ BaseInfo.pref }}{{ BaseInfo.addr01 }}{{ BaseInfo.addr02 }}
+            {% endif %}
+            　<a href="https://goo.gl/maps/6Xv6hvGnEdoKb3Bb7" target="_blank">GoogleMapで見る</a>
+          </p>
+          <a class="btn btn--gold" href="{{ url('contact') }}" role="button">メールでのお問い合わせ<i class="fas fasRight"></i></a>
+          <a class="btn btn--gold" href="https://lin.ee/cncjOYx" role="button">LINEでともだち登録する<i class="fas fasRight"></i></a>
+        </div>
+      </div>
+    </section>
+    <section class="footerBottom">
+      <ul class="flexContainer__start">
+        <li><a href="{{ url('mypage') }}">マイページ<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('cart') }}">カートを見る<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('product_list') }}">商品一覧<i class="fas fasRight"></i></a></li>
+        <li><a href="https://www.utsumibiyou-order.com/user_data/teiki">定期購入<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('mypage') }}">注文履歴<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('help_guide') }}">初めての方へ<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('contact') }}">お問い合わせ<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('help_about') }}">会社概要<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('user_data', {'route': 'faq'}) }}">よくある質問<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('help_agreement') }}">利用規約<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('user_data', {'route': 'tenbai'}) }}">転売に対する措置について<i class="fas fasRight"></i></a></li>
+        <li><a href="{{ url('help_tradelaw') }}">特定商取引法について<i class="fas fasRight"></i></a></li>
+      </ul>
+    </section>
+    <p class="copyright">
+      <small>© {{ "now"|date("Y") }} {{ BaseInfo.shop_name }}.</small>
+    </p>
+  </div>
+</footer>

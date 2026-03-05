@@ -1,0 +1,182 @@
+{# プラグイン元々のテンプレート
+<div class="ec-shelfRole" id="plg_category_sales_ranking">
+    {% if Category %}
+        <div class="ec-rectHeading">
+            <h2>{{ Category.name }}ランキング</h2>
+        </div>
+    {% endif %}
+    <ul class="ec-shelfGrid">
+    </ul>
+</div>
+#}
+
+<section class="topRanking--UT" id="plg_category_sales_ranking">
+  <div class="L-inner__L">
+    {% if Category %}
+      <h2 class="h2-main txt_center">{{ Category.name }}人気ランキング</h2>
+    {% else %}
+      <h2 class="h2-main txt_center">今月の人気ランキング</h2>
+    {% endif %}
+    <ul class="flexContainer__start">
+    </ul>
+    <div class="txt_center">
+      <a class="btn btn--gold" href="{{ url('product_list') }}" role="button">商品一覧を見る<i class="fas fasRight"></i></a>
+    </div>
+  </div>
+</section>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-loading-overlay/2.1.7/loadingoverlay.min.js"></script>
+<script>
+    $(function () {
+        $('#plg_category_sales_ranking').LoadingOverlay('show', {
+            size: 20
+        });
+
+        // プラグイン元々の定義
+        //const list = $('#plg_category_sales_ranking ul.ec-shelfGrid');
+        const list = $('#plg_category_sales_ranking ul.flexContainer__start');
+
+        $.ajax({
+            type: 'GET',
+            url: '{{ url('block_plugin_category_sales_ranking_json') }}',
+            dataType: "json",
+            data: {
+                'category_id': '{{ Category ? Category.id : null }}'
+            },
+        }).done((data, textStatus, jqXHR) => {
+            for (let i = 0; i < data.length; i++) {
+                let rank = i + 1;
+                /* プラグイン元々の定義
+                let li = '<li class="ec-shelfGrid__item">' +
+                    '<a href="' + data[i].url + '">' +
+                    '<p class="ec-shelfGrid__item-image"><img src="' + data[i].image + '" /></p>' +
+                    '<span class="badge">' + rank + '位</span>' +
+                    '<p class="name">' + data[i].name + '</a>' +
+                    '</a>' +
+                    '</li>';
+                */
+                let li = '<li>' +
+                    '<figure><a href="' + data[i].url + '"><img src="' + data[i].image + '" /></a></figure>' +
+                    '<span class="badge">' + rank + '位</span>' +
+                    '<p><a href="' + data[i].url + '">' + data[i].name + '</a></p>' +
+                    '</li>';
+                list.append(li);
+            }
+
+            let slidesToShow = data.length >= {{ Config.slidesToShow }} ? {{ Config.slidesToShow }} : data.length;
+
+            /* プラグイン元々の定義
+            $('#plg_category_sales_ranking ul.ec-shelfGrid').slick({
+                dots: {{ Config.dots ? "true" : "false" }},
+                arrows: false,
+                autoplay: {{ Config.autoplay ? "true" : "false" }},
+                speed: {{ Config.speed }},
+                slidesToShow: slidesToShow,
+                vertical: {{ Config.vertical ? "true" : "false" }},
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: slidesToShow,
+                        slidesToScroll: {{ Config.slidesToScroll }},
+                    }
+                }, {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: slidesToShow,
+                        slidesToScroll: {{ Config.slidesToScroll }},
+                    }
+                }]
+            });
+            */
+        }).fail((jqXHR, textStatus, errorThrown) => {
+            $('#plg_category_sales_ranking').hide();
+        }).always(() => {
+            $('#plg_category_sales_ranking').LoadingOverlay('hide', true);
+        });
+    });
+</script>
+
+<style>
+    #plg_category_sales_ranking .ec-shelfGrid .ec-shelfGrid__item-image {
+        height: 150px;
+    }
+
+    #plg_category_sales_ranking .ec-shelfGrid .ec-shelfGrid__item-image img {
+        max-height: 100%;
+    }
+
+    #plg_category_sales_ranking .slick-slider {
+        margin-bottom: 30px;
+    }
+
+    #plg_category_sales_ranking .slick-dots {
+        position: absolute;
+        bottom: -45px;
+        display: block;
+        width: 100%;
+        padding: 0;
+        list-style: none;
+        text-align: center;
+    }
+
+    #plg_category_sales_ranking .slick-dots li {
+        position: relative;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin: 0 5px;
+        padding: 0;
+
+        cursor: pointer;
+    }
+
+    #plg_category_sales_ranking .slick-dots li button {
+        font-size: 0;
+        line-height: 0;
+        display: block;
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+        cursor: pointer;
+        color: transparent;
+        border: 0;
+        outline: none;
+        background: transparent;
+    }
+
+    #plg_category_sales_ranking .slick-dots li button:hover,
+    #plg_category_sales_ranking .slick-dots li button:focus {
+        outline: none;
+    }
+
+    #plg_category_sales_ranking .slick-dots li button:hover:before,
+    #plg_category_sales_ranking .slick-dots li button:focus:before {
+        opacity: 1;
+    }
+
+    #plg_category_sales_ranking .slick-dots li button:before {
+        content: " ";
+        line-height: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        text-align: center;
+        opacity: .25;
+        background-color: black;
+        border-radius: 50%;
+
+    }
+
+    #plg_category_sales_ranking .slick-dots li.slick-active button:before {
+        opacity: .75;
+        background-color: black;
+    }
+
+    #plg_category_sales_ranking .slick-dots li button.thumbnail img {
+        width: 0;
+        height: 0;
+    }
+
+</style>

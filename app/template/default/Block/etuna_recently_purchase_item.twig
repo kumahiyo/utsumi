@@ -1,0 +1,159 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) Takashi Otaki All Rights Reserved.
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<style type="text/css">
+.slide-wrap {
+    margin-bottom: 20px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    display: flex;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+
+}
+@media only screen and (max-width: 767px) {
+    .side-box {
+      flex: 0 0 40%;
+      padding: 0 8px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .side-box {
+      flex: 0 0 18%;
+      padding: 0 8px;
+    }
+}
+.inner, .inner img {
+    max-width: 100%;
+}
+.ni-pageHeader {
+    padding: 0px 8px;
+}
+.ni-pageHeader h3 {
+    border-top: none;
+    border-bottom: 1px solid #ccc;
+    padding: 8px;
+}
+</style>
+
+{# プラグイン元々のテンプレート
+{% if RecentlyPurchaseItem is not empty %}
+    {% if Config.recently_purchase_item_title != "" %}
+    <div class="ni-pageHeader">
+        <h3>{{ Config.recently_purchase_item_title }}</h3>
+    </div>
+    {% endif %}
+    <div class="slide-wrap">
+        {% for item in RecentlyPurchaseItem %}
+        <div class="side-box">
+            <div class="inner">
+                <a href="{{ url('product_detail', {'id': item.Product.id}) }}">
+                {% if item.Product.ProductImage[0] %}
+                    <img src="{{ asset(item.Product.ProductImage[0], 'save_image') }}">
+                {% else %}
+                    <img src="{{ asset(''|no_image_product, 'save_image') }}"/>
+                {% endif %}
+                {% if Config.recently_purchase_item_disp_title == 1 %}
+                    <p>{{ item.Product.name }}</p>
+                {% endif %}
+                {% if Config.recently_purchase_item_disp_price == 1 %}
+                    <p class="price02_default">
+                        {% if item.Product.hasProductClass %}
+                            {% if item.Product.getPrice02Min == item.Product.getPrice02Max %}
+                                {{ item.Product.getPrice02IncTaxMin|price }}
+                            {% else %}
+                                {{ item.Product.getPrice02IncTaxMin|price }} ～ {{ item.Product.getPrice02IncTaxMax|price }}
+                            {% endif %}
+                        {% else %}
+                            {{ item.Product.getPrice02IncTaxMin|price }}
+                        {% endif %}
+                    </p>
+                {% endif %}
+                {% if Config.recently_purchase_item_disp_code == 1 %}
+                    <p>{{ item.Product.code_min }}{% if item.Product.code_min != item.Product.code_max %} ～ {{ item.Product.code_max }}{% endif %}</p>
+                {% endif %}
+                {% if Config.recently_purchase_item_disp_description_detail == 1 %}
+                    <p>{{ item.Product.description_detail|raw|nl2br }}</p>
+                {% endif %}
+                </a>
+                {% if Config.recently_purchase_item_disp_cat == 1 %}
+                    {% for ProductCategory in item.Product.ProductCategories %}
+                        <p>{% for Category in ProductCategory.Category.path %}
+                            <a href="{{ url('product_list') }}?category_id={{ Category.id }}">{{ Category.name }}</a> {%- if loop.last == false %}
+                            <span>＞</span>{% endif -%}
+                        {% endfor %}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+#}
+
+{% if RecentlyPurchaseItem is not empty %}
+    <section class="underOrderdata--UT mbLarge">
+        <div class="L-inner">
+            {% if Config.recently_purchase_item_title != "" %}
+            <h2 class="h2-main txt_center">
+                {{ Config.recently_purchase_item_title }}
+            </h2>
+            {% endif %}
+            <ul class="flexContainer__start">
+                {% for item in RecentlyPurchaseItem %}
+                <li>
+                    <div class="inner">
+                        {% if item.Product.ProductImage[0] %}
+                            <figure><a href="{{ url('product_detail', {'id': item.Product.id}) }}"><img src="{{ asset(item.Product.ProductImage[0], 'save_image') }}"></a></figure>
+                        {% else %}
+                            <figure><img src="{{ asset(''|no_image_product, 'save_image') }}"/></figure>
+                        {% endif %}
+                        {% if Config.recently_purchase_item_disp_title == 1 %}
+                            <p><a href="{{ url('product_detail', {'id': item.Product.id}) }}">{{ item.Product.name }}</a></p>
+                        {% endif %}
+                        {% if Config.recently_purchase_item_disp_price == 1 %}
+                            <p>
+                                {% if item.Product.hasProductClass %}
+                                    {% if item.Product.getPrice02Min == item.Product.getPrice02Max %}
+                                        {{ item.Product.getPrice02IncTaxMin|price }}
+                                    {% else %}
+                                        {{ item.Product.getPrice02IncTaxMin|price }} ～ {{ item.Product.getPrice02IncTaxMax|price }}
+                                    {% endif %}
+                                {% else %}
+                                    {{ item.Product.getPrice02IncTaxMin|price }}
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                        {% if Config.recently_purchase_item_disp_code == 1 %}
+                            <p>{{ item.Product.code_min }}{% if item.Product.code_min != item.Product.code_max %} ～ {{ item.Product.code_max }}{% endif %}</p>
+                        {% endif %}
+                        {% if Config.recently_purchase_item_disp_description_detail == 1 %}
+                            <p>{{ item.Product.description_detail|raw|nl2br }}</p>
+                        {% endif %}
+                        </a>
+                        {% if Config.recently_purchase_item_disp_cat == 1 %}
+                            {% for ProductCategory in item.Product.ProductCategories %}
+                                <p>{% for Category in ProductCategory.Category.path %}
+                                    <a href="{{ url('product_list') }}?category_id={{ Category.id }}">{{ Category.name }}</a> {%- if loop.last == false %}
+                                    <span>＞</span>{% endif -%}
+                                {% endfor %}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="txt_center">
+              <a class="btn btn--gold" href="{{ url('mypage') }}" role="button">注文履歴を見る<i class="fas fasRight"></i></a>
+            </div>            
+        </div>
+    </section>
+{% endif %}

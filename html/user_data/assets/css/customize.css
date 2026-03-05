@@ -1,0 +1,766 @@
+/*===============================================
+カスタマイズ用CSS
+===============================================*/
+
+/* font */
+@font-face{
+  font-family:"NotoSerifJP-R";
+  src:url("NotoSerifJP-Regular.otf") format("opentype");
+}
+@font-face{
+  font-family:"NotoSerifJP-M";
+  src:url("NotoSerifJP-Medium.otf") format("opentype");
+}
+
+/* リンク要素 */
+a{
+  color: #543900;
+  text-decoration:underline;
+}
+a:hover{
+  color: #543900;
+}
+.ec-link {
+  color: #543900;
+  text-decoration: none;
+  cursor: pointer;
+}
+.ec-alert-warning{
+  background:#DE5D50;
+}
+.ec-cartNaviNull::before{
+  background-color: transparent transparent #DE5D50 transparent;
+}
+.ec-cartNaviNull{
+  background:#DE5D50;
+}
+.ec-cartNaviNull .ec-cartNaviNull__message{
+  background:#DE5D50;
+  border: none;
+}
+
+/* ボタン */
+.ec-blockBtn--action{
+  background: #F1B535;
+  border: none;
+  color:#000000;
+  font-family:"NotoSerifJP-R";
+}
+.ec-blockBtn--action:hover{
+  background: #f7bf48;
+  border: none;
+  color: #000000;
+}
+.ec-blockBtn--action:active:hover{
+  background: #F1B535;
+  border: none;
+  color: #000000;
+}
+.ec-blockBtn--action:visited{
+  background: #F1B535;
+  border: none;
+  color: #000000;
+}
+.ec-blockBtn--cancel {
+  background: #000000;
+  font-family:"NotoSerifJP-R";
+}
+.ec-inlineBtn--action{
+  background: #f7bf48;
+  border: none;
+  color: #000000;
+  font-weight: 500;  
+}
+.ec-inlineBtn--cancel{
+  background: #000000;
+  font-weight: 500;  
+}
+
+a#coupon_button{
+  color: #D90000;
+}
+a#coupon_button:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0da";
+  margin-left: 10px;
+}
+
+h2{
+  margin-bottom: 20px;
+}
+.h2-main {
+  margin-bottom: 40px;
+}
+
+/*===============================================
+header
+===============================================*/
+.ec-headerNaviRole{
+  max-width: 100%;
+  background: #000000;
+  padding: 10px 20px;
+  margin-bottom: 50px;
+}
+
+/* header 検索ボタン */
+.ec-headerSearch .ec-headerSearch__category .ec-select.ec-select_search{
+  background: #F1B535;
+}
+.ec-headerSearch .ec-headerSearch__category .ec-select.ec-select_search::before{
+  border-top: 6px solid #000;
+}
+.ec-headerSearch .ec-headerSearch__category .ec-select select{
+  color: #000000;
+  padding-left: 15px;
+}
+
+.ec-pageHeader h1{
+  font-size: 24px;
+  font-family:"NotoSerifJP-R";
+  font-weight: normal;
+  color: #000000;
+}
+
+.ec-cartNaviIsset .ec-cartNaviIsset__action .ec-blockBtn--action{
+  color: #000000;
+  font-weight: 500;
+}
+
+.ec-headerNav .ec-headerNav__item a {
+  text-decoration: none;
+}
+
+.ec-headerNavSP {
+  width: 48px;
+  height: 48px;
+  padding: 10px 0;
+}
+
+/*===============================================
+メインスライド
+===============================================*/
+.ec-sliderRole{
+  width: 920px;
+  padding-top: 20px;
+}
+
+.topRanking--UT .flexContainer__start li{
+  position: relative;
+}
+
+.badge {
+  background: #df0c0c;
+  padding: 12px 15px;
+  color: #fff;
+  border-radius: 30px;
+  position: absolute;
+  top: -5%;
+  left: 4%;
+}
+
+/*===============================================
+snsエリア
+===============================================*/
+.snsList--UT ul li a{
+  text-decoration: none;
+}
+
+/*===============================================
+フッター
+===============================================*/
+#footer--UT .flexContainer__start p a,#footer--UT .flexContainer__start p a:visited{
+  color: #ffffff;
+}
+
+/*===============================================
+商品一覧上部カテゴリーリスト
+===============================================*/
+.ec-itemNav__nav li a {
+  text-align: center;
+  background: #F1B535;
+  border-bottom: none;
+  margin: 0 30px 30px 0;
+  color: #000000;
+  font-family:Roboto, "游ゴシック", YuGothic, "Yu Gothic", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, sans-serif;
+  font-weight: normal;
+}
+
+.ec-itemNav__nav > li:hover > a {
+  background: #F1B535;
+}
+
+/*===============================================
+お得情報をチェック
+===============================================*/
+.listItem4--UT{
+  margin-top: 100px;
+}
+
+/*===============================================
+商品一覧
+===============================================*/
+.ec-topicpath{
+  color: #543900;
+}
+
+.price02-default{
+  margin-top: 10px;
+  color:#FF0000;
+  text-align: right;
+}
+
+.ec-shelfGrid__item form{
+  margin-top: 10px;
+}
+
+.ec-pager .ec-pager__item a {
+  background: #000000;
+  color: #ffffff;
+}
+
+.ec-pager .ec-pager__item a:hover {
+  color: #ffffff;
+}
+
+.ec-pager .ec-pager__item--active a {
+  background: #F1B535;
+  color: #000000;
+}
+
+/*===============================================
+商品詳細
+===============================================*/
+.ec-productRole{
+  color: #000000;
+}
+
+.ec-productRole .ec-productRole__title .ec-headingTitle {
+  font-size: 21px;
+  font-family:"NotoSerifJP-M";
+  line-height: 1.6;
+  color: #000000;
+}
+
+.ec-productRole__tags{
+  margin-bottom: 16px;
+}
+
+.ec-productRole .ec-productRole__price{
+  padding: 0 0 15px 0;
+}
+
+.ec-productRole .ec-productRole__description{
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.ec-productRole .ec-productRole__description iframe{
+  height: 300px;
+  margin-bottom: 10px;
+}
+
+.ec-productRole .ec-productRole__category ul {
+  margin: 10px 0;
+}
+
+.ec-productRole .ec-productRole__category a {
+  color: #543900;
+}
+
+.ec-price{
+  font-family:"NotoSerifJP-M";
+  color: #D90000;
+}
+
+/* 商品レビュー */
+.ec-layoutRole__main #product_review_area{
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+
+.ec-rectHeading h1, .ec-rectHeading h2, .ec-rectHeading h3, .ec-rectHeading h4, .ec-rectHeading h5, .ec-rectHeading h6{
+  padding: 12px;
+  font-size: 19px;  
+  font-family:"NotoSerifJP-R";
+  font-weight: 500;
+}
+
+#reviewContent p{
+  margin-bottom: 10px;
+}
+
+/*===============================================
+ログイン
+===============================================*/
+.loginBnr--UT{
+  width: 880px;
+  margin: 0 auto;
+}
+
+/*===============================================
+カート
+===============================================*/
+
+/* プログレスバー */
+.ec-progress .ec-progress__item{
+  font-family:"NotoSerifJP-R";
+}
+.ec-progress .is-complete .ec-progress__number{
+  background: #F1B535;
+  color: #000000;
+}
+.ec-progress .is-complete .ec-progress__label{
+  color: #D90000;
+}
+.ec-progress .ec-progress__number{
+  margin-bottom: 15px;
+}
+.ec-progress .ec-progress__number{
+  background: #000000;
+  font-weight: 500;
+}
+.ec-pageHeader{
+  margin-top: 30px;
+}
+.ec-cartRole{
+  margin-bottom: 50px;
+}
+
+.ec-cartRole .ec-cartRole__totalAmount{
+  color: #D90000;
+}
+
+/* ご注文手続き */
+.ec-orderAccount .ec-orderAccount__account p{
+  margin-bottom: 10px;
+}
+.ec-rectHeading h1, .ec-rectHeading h2, .ec-rectHeading h3, .ec-rectHeading h4, .ec-rectHeading h5, .ec-rectHeading h6{
+  color: #000000;
+}
+.ec-orderDelivery .ec-orderDelivery__title{
+  font-family:"NotoSerifJP-R";
+  color: #000000;
+}
+.ec-orderDelivery .ec-orderDelivery__address p{
+  margin-bottom: 10px;
+}
+
+/* 配送方法ラベル */
+.ec-select label{
+  font-family:"NotoSerifJP-R";
+}
+
+/* 利用ポイント */
+.ec-input p{
+  margin-bottom: 10px;
+}
+
+/* クーポン */
+#customer_detail_box p{
+  margin-top: 10px;
+}
+
+.ec-totalBox .ec-totalBox__paymentTotal .ec-totalBox__price, .ec-totalBox .ec-totalBox__paymentTotal .ec-totalBox__taxLabel{
+  color: #D90000;
+}
+.ec-totalBox .ec-totalBox__paymentTotal .ec-totalBox__price, .ec-totalBox .ec-totalBox__paymentTotal .ec-totalBox__taxLabel{
+  color: #D90000;
+}
+
+/* ボタン */
+.ec-totalBox .ec-totalBox__btn .ec-blockBtn--action{
+  font-weight: 500;
+}
+.ec-blockBtn--cancel{
+  font-weight: 500;
+}
+
+.ec-registerRole__actions .ec-checkbox{
+  margin:20px 0 15px;
+  font-weight: bold;
+}
+
+#page_plugin_coupon_shopping .ec-pageHeader h1{
+  margin-bottom: 0;
+}
+
+#page_shopping_confirm .ec-imageGrid,#page_shopping .ec-imageGrid{
+  padding: 20px 0 10px;
+}
+
+#page_shopping_redirect_to .ec-imageGrid,#page_shopping .ec-imageGrid,#page_mypage_history .ec-imageGrid,#page_mypage .ec-imageGrid{
+  padding: 20px 0 10px;
+}
+
+.ec-orderRole{
+  margin-bottom: 100px;
+}
+
+.ec-rectHeading{
+  margin-top: 35px;
+}
+
+.ec-reportHeading h2{
+  line-height: 1.5;
+  font-size: 21px;
+  margin-top: 30px;
+}
+
+.ec-reportDescription{
+  line-height: 1.8;
+  text-align: left;
+}
+
+/*===============================================
+マイページ
+===============================================*/
+
+/* 詳細を見るボタン */
+.ec-inlineBtn{
+  background: #F1B535;
+  color: #000000;
+  border:none;
+}
+.ec-inlineBtn:hover{
+  background: #f7bf48;
+  border: none;
+  color: #000000;
+}
+
+/* メニューボタン */
+.ec-navlistRole .active a {
+  color: #000;
+  background: #F1B535;
+}
+
+.ec-pageHeader h1{
+  margin-bottom: 30px;
+}
+
+.ec-navlistRole .ec-navlistRole__item{
+  font-weight: normal;
+}
+
+.ec-imageGrid .ec-imageGrid__content{
+  vertical-align: top;
+}
+
+.ec-historyRole .ec-historyRole__detail .ec-historyRole__detailTitle{
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: normal;
+}
+
+.ec-historyRole .ec-historyRole__detail .ec-historyRole__detailPrice{
+  font-size: 1rem;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+.ec-orderMail .ec-orderMail__link a{
+  color: #543900;
+  text-decoration:underline;
+}
+
+.ec-definitions, .ec-definitions--soft{
+  margin-bottom: 10px;
+}
+
+.ec-addressList__address div{
+  margin-bottom: 10px;
+}
+
+.ec-historyRole .ec-historyRole__header{
+  width: 22%;
+}
+
+.ec-imageGrid .ec-imageGrid__img{
+  width: 240px;
+  padding: 0 20px 10px 10px;
+}
+
+.ec-historyRole .ec-historyRole__contents{
+  padding: 30px 0;
+}
+
+.ec-definitions, .ec-definitions--soft{
+  margin-bottom: 15px;
+}
+
+.ec-imageGrid .ec-imageGrid__content p{
+  margin-bottom: 10px;
+}
+
+#page_mypage_history .ec-rectHeading h2{
+  margin-bottom: 10px;
+}
+
+.ec-orderDelivery{
+  margin-bottom: 40px;
+}
+
+.ec-orderPayment{
+  margin-bottom: 40px;
+}
+
+.ec-orderMails{
+  margin-bottom: 40px;
+}
+
+.ec-orderCoupon{
+  margin-bottom: 40px;
+}
+
+.ec-orderConfirm{
+  margin-bottom: 40px;
+}
+
+#shopping_order_Shippings_0_Delivery{
+  margin-top: 10px;
+}
+
+.ec-orderPayment{
+  margin: 35px 0;
+}
+
+.ec-radio div{
+  margin-bottom: 40px;
+}
+
+.ec-radio p{
+  margin-top: 10px;
+}
+
+.ec-favoriteRole .ec-favoriteRole__itemPrice{
+  font-weight: normal;
+  color: #ff0000;
+}
+
+/* メルマガの変更を不可にする（hobspotの配信停止からしてもらう） */
+.ec-mypageRole .ec-borderedDefs dl:last-child{
+  display: none;
+}
+
+/*===============================================
+注文内容確認
+===============================================*/
+
+#page_shopping .ec-layoutRole__mainBottom,
+#page_shopping .ec-layoutRole__contentBottom,
+#page_shopping_confirm .ec-layoutRole__mainBottom,
+#page_shopping_confirm .ec-layoutRole__contentBottom {
+  display: none;
+}
+
+/*===============================================
+最近購入された商品　プラグイン
+===============================================*/
+.underOrderdata--UT .flexContainer__start li {
+    width: 16.4%;
+    margin-right: 40px;
+    margin-bottom: 40px;
+}
+@media only screen and (max-width: 800px) and (min-width: 0px) {
+    .underOrderdata--UT .flexContainer__start li {
+        width: 47%;
+        margin-right: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+/*===============================================
+おすすめ商品　プラグイン
+===============================================*/
+.topOsusume--UT{
+  margin-bottom: 70px;
+}
+.topOsusume--UT li p{
+  display: inline-block;
+  margin-top: 10px;
+  padding: 0 3px;
+  background: #a78859;
+  color:#ffffff;
+}
+.topOsusume--UT li dl dt{
+  margin-bottom: 10px;
+}
+
+/*===============================================
+SP
+===============================================*/
+  .ec-drawerRole.is_active {
+    display: block;
+  }
+  .ec-drawerRoleClose.is_active  {
+    display: inline-block;
+  }
+
+@media screen and (max-width: 640px) {
+
+  strong {
+    font-weight: 500;
+    color: #ff0000;
+  }
+
+  .ec-headerNav .ec-headerNav__itemIcon {
+    color: #ffffff;
+  }
+  .ec-cartNavi{
+    color: #ffffff;
+  }
+
+  /* ドロワー */
+  .ec-drawerRole .ec-headerCategoryArea .ec-headerCategoryArea__heading{
+    background: none;
+    border-top:none;
+    border-bottom:none;
+    color: #ffffff;
+  }
+  .ec-drawerRole .ec-headerCategoryArea .ec-itemNav__nav li a{
+    color: #ffffff;
+    background: none;
+    border-bottom: none;
+  }
+  .ec-itemNav__nav li a{
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .ec-drawerRole .ec-headerSearch{
+    background: #000000;
+    padding-bottom: 10px;
+  }
+  .ec-drawerRole .ec-headerLinkArea .ec-headerLink__item{
+    font-weight: normal;
+    text-decoration: none;
+  }
+
+  /* MVスライド */
+  .ec-sliderRole{
+    width: 100%;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .topRanking--UT .flexContainer__start li:last-child{
+    margin-right: 0;
+  }
+
+  .topOsusume--UT{
+    margin-bottom: 20px;
+  }
+
+  .listItem4--UT{
+    margin-bottom: 20px;
+  }
+
+  /* 商品詳細 本文 */
+  .ec-productRole__description{
+    margin-top: 30px;
+  }
+  
+  .ec-productRole .ec-productRole__description iframe{
+    height: 250px;
+  }
+
+  .youtube {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .youtube iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* レビュー */
+ .ec-layoutRole__main #product_review_area{
+    margin-bottom: 60px;
+  }
+
+  .loginBnr--UT{
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* カート */
+  .ec-cartNaviWrap{
+    position: unset;
+  }
+  .ec-cartNaviIsset{
+    top:10.5%;
+  }
+  .ec-cartRole{
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+  .ec-layoutRole__main{
+    margin-top: 0;
+  }
+  .ec-blockBtn--action{
+    margin-bottom: 20px;
+  }
+  .ec-historyRole .ec-historyRole__detail{
+    border-top:0;
+  }
+  .ec-orderRole{
+    margin-bottom: 60px;
+  }
+  .ec-radio div{
+    margin-bottom: 25px;
+  }
+  .ec-progress .ec-progress__label{
+    font-size: 11px;
+  }
+
+  /* マイページ */
+  .ec-imageGrid{
+    padding: 15px 0;
+  }
+  .ec-imageGrid .ec-imageGrid__img{
+    width: 140px;
+    padding: 10px 10px 10px 0;
+  }
+  .ec-borderedDefs dl{
+    padding: 15px 0 10px;
+  }
+  .ec-label{
+    margin-bottom: 10px;
+  }
+  .ec-historyRole .ec-historyRole__header{
+    width: 100%;
+  }
+
+  .ec-favoriteRole .ec-favoriteRole__itemList{
+    justify-content: space-between;
+  }
+
+  .underOrderdata--UT .flexContainer__start li:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  /* pager */
+  .ec-pager .ec-pager__item, .ec-pager .ec-pager__item--active{
+    margin-bottom: 10px;
+  }
+  .listItem4--UT{
+    margin-top: 40px;
+  }  
+
+}
+
+/*===============================================
+PC
+===============================================*/
+@media screen and (min-width: 768px) {
+  .ec-login {
+    margin-bottom: 60px;
+  }
+}

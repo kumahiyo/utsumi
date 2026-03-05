@@ -1,0 +1,161 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends 'default_frame.twig' %}
+
+{% block main %}
+
+<section class="underImage--UT">
+  <div class="L-inner">
+    <h2>{{ 'ご利用ガイド'|trans }}</h2>
+   </div>
+</section>
+<div class="underInnerGuide--UT">
+  <div class="L-inner">
+    <section class="underContents--UT">
+      <h3 class="bgGray">メールの受信設定について</h3>
+      <p>
+        必ず「info@utsumibiyou-order.com」のメールが受信できる状態に設定してください。携帯電話で受信される際はドメインの解除をお願いいたします。
+      </p>
+      <p>
+        商品のご注文後、注文内容のご確認メールを送信しております。メールが届かない場合は迷惑メールではじかれている可能性がございます。その場合は必ずご連絡をいただけますようお願いいたします。
+      </p>
+    </section>
+    <section class="underContents--UT">
+      <h3 class="bgGray">商品到着までの流れ</h3>
+      <p>
+        在庫がある商品につきましては、ご注文から後1～3日（土日、祝日を除く）に発送いたします。
+      </p>
+      <p>
+        一部出荷が遅れる商品に関してはメールにて納期をご連絡しております。なお配送は日本国内のみとさせていただきます。
+      </p>
+    </section>
+    <section class="underContents--UT">
+      <h3 id="guide-postage" class="bgGray">配送・送料について</h3>
+      <p>
+        ヤマト運輸にて、ご指定住所へお届けします。配達日 / 配達時間指定が可能です。
+      </p>
+      <p>
+　      【配達時間】・午前中 ・ 12時-14時 ・ 14時-16時 ・ 16時-18時 ・ 18時-21時
+      </p>
+      <p>
+        配達日指定については「備考欄」にてご希望の日時をご記入下さい。<br>
+        なお、ヤマト運輸配送センターの関係で一部郡部や離島などは配達指定時間帯を承れない場合もございます。<br>
+        ※ご希望に添えない場合がございますのでご了承下さい。
+      </p>
+      <p>
+        商品の梱包は、配送途中で破損が無いように十分配慮いたしますが、環境保護も配慮して簡易包装とさせていただいておりますのでご協力いただきますようお願いいたします。
+      </p>
+      <h4 class="borderbottom">送料について</h4>
+      <ul>
+        <li>1万円以下の場合は880円</li>
+        <li>1万円以上のご購入で送料無料！</li>
+        <li>定期購入品につきましても送料無料となっております</li>
+      </ul>
+      <h4 class="borderbottom">商品が受け取れなかった場合</h4>
+      <p>お荷物のお受取可能期間は、原則として当社発送日から7日以内となります。</p>
+      <p>ご不在の場合は配送会社が不在通知を残していきます。</p>
+      <p>再配達可能期間内にお客様の配送希望日を調整の上、商品を必ずお受取ください。</p>
+      <p>不在通知に記載の期日までにご連絡いただけない場合、また住所不明の場合、商品は一旦弊社へ返送されます。</p>
+      <p>返送された商品の再配達送料はお客様ご負担となります。</p>
+      <p>なお、やむを得ない事情により商品のお受け取りがいただけない場合は、再発送をさせていただきますので事前にinfo@utsumibiyou-order.comまでご連絡をお願いいたします。</p>
+      <p>
+      ※理由によっては、再発送をお断りさせていただく場合もございます。<br>
+      ※再発送の際の日時指定はできません。
+      ※代引商品のお客様都合による受取辞退は、重大な規約違反となり固くお断りしております。
+      ※受取拒否とみなされ弊社からの連絡にもご回答いただけない場合、弊サイトの使用禁止措置および法的措置による返送料を含めた商品代金請求措置を取らせていただくことがございますのでご了承ください。
+      </p>
+    </section>
+    <section class="underContents--UT">
+      <h3 class="bgGray">お支払い方法について</h3>
+      <section class="underContents--UT__wrap">
+        <h4 class="borderbottom">クレジットカード</h4>
+        <p>
+          各種クレジットカードによるお支払いです。下記のカードがご利用いただけます。
+        </p>  
+        <p>
+          VISA｜MASTER｜DINERS｜JCB｜AMEX
+        </p>
+        <p>
+        当サイトでは不正利用を防止する3Dセキュア認証サービスに対応しています。セキュリティレベルの向上に伴い、稀に通常のお客様でもご注文が通りにくいことがございます。クレジット決済時にエラーが出て完了しなかった方は店舗までご連絡ください。
+        </p>
+      </section>
+      <section class="underContents--UT__wrap">
+        <h4 class="borderbottom">銀行振込</h4>
+        <p>
+          下記の口座へ代金をお振込みください。振込み手数料はお客様負担となります。
+        </p>          
+        <p>
+          ※お振込みの際は、ご注文されたお客様ご名義でお振込みください
+        </p>  
+      </section>
+      <section class="underContents--UT__wrap">
+        <h5>振込先</h5>
+        <section class="borderWrap">
+          <h6>郵貯銀行から</h6>
+          <p>郵貯銀行 記号：15190 番号：49534951</p>
+        </section>
+        <section class="borderWrap">
+          <h6>他金融機関からのお振り込み</h6>
+          <p>店名：五一八　店番：518　普通　口座番号：4953495　口座名義：ウツミノブヒロ</p>
+        </section>
+      </section>
+      <section class="underContents--UT__wrap">
+        <h5>備考</h5>
+        <ul>
+          <li>ご注文後、お支払いに関するご案内メールをお送りいたします。メールに記載の金額をご確認のうえ、お支払いください。</li>
+          <li>お振り込み手数料はお客様ご負担とさせていただいております。</li>
+          <li>お支払い状況の確認後、発送手続き開始となります。</li>
+        </ul>
+        <p>
+          ※ご注文者様の名義の口座よりお支払いください。（お支払いの確認ができない場合があるため）<br>
+          ※銀行振込でご不明なことがございましたら店舗までお電話ください。
+        </p>
+      </section>  
+      <section class="underContents--UT__wrap">
+        <h4 class="borderbottom">代金引換</h4>
+        <p>
+          ご注文いただいた商品を配達員がお渡しする際に、お受け取りと同時に代金を現金でお支払いただく方法です。宅急便コレクト（お届け時カード支払い）もご利用いただけます。
+        </p>
+        <p>
+          代引き時のクレジット決済は以下となっております。
+        </p>
+        <p>
+          <img src="/html/user_data/assets/img/common/0115223204_63c4005409afc.jpg" alt="">
+        </p>
+      </section>      
+      <section class="underContents--UT__wrap">
+        <h4 class="borderbottom">PayPal</h4>
+        <p>
+          PayPal（ペイパル）とは、クレジットカード、デビットカードを登録するか銀行の口座振替設定を行うだけでIDとパスワードのみでの取引が可能になる決済方法です。お支払い情報をお店側に伝えることなく安全にご利用いただけるサービスです。
+        </p>
+        <p>
+          <a href="https://www.paypal.com/jp/home" target="_blank">PayPal公式サイト</a>
+        </p>
+      </section>
+    </section>
+    <section class="underContents--UT">
+      <h3 class="bgGray">返品、交換、保証について</h3>
+      <h4 class="borderbottom">返品、交換について</h4>
+      <p>
+        未使用のものに限り、返品・交換を受け付けさせていただきます。商品の欠陥や不良など当社原因による場合には商品到着後、7日間以内にお電話ください。なお、お客様都合による返品・交換は受け付けておりませんので、ご了承ください。
+      </p>
+      <p>
+        ポンプの不良・容器の不具合はご購入から１ヶ月以内でしたら交換可能となっております。容器に不良品があった場合は１ヶ月以内にご連絡ください。
+      </p>
+      <h4 class="borderbottom">保証対象商品について</h4>
+      <p>
+        商品の品質には万全を期しておりますが、万一商品に破損など不具合がございました場合は、到着よ7日以内にお電話にてご連絡ください。商品到着後、7日以上経過後やご使用後の不具合につきましては、ご対応いたしかねますのでご了承ください。
+      </p>
+    </section>
+  </div>
+</div>
+
+{% endblock %}

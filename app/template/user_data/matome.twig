@@ -1,0 +1,80 @@
+{% extends 'default_frame.twig' %}
+
+{% block main %}
+  {% set Products = category_by_id(360) %}
+  <div class="pagetop fade">
+    <a href="#"><img src="{{ asset('assets/img/common/pagetop.png', 'user_data') }}" alt="ページトップへ" width="50"></a>
+  </div>
+  <section class="underImage--UT">
+    <div class="L-inner">
+      <h2>まとめ買い購入</h2>
+     </div>
+  </section>
+  <section class="txt_center mbLarge">
+    <div class="L-inner">
+      <h3 class="h3-under">まとめ買い購入について</h3>
+      <p>
+        定期的に購入する愛用品を毎月お届け。<br>
+        送料無料、特別価格でご提供しています。
+      </p>
+     </div>
+  </section>
+  <section class="underCheckpoint--UT mbLarge">
+    <div class="L-inner__L">
+      <section class="pointWrap--UT flexContainer__start">
+        <div class="pointWrap__no">
+          <p>POINT<br><span class="No">1</span></p>
+        </div>
+        <div class="pointWrap__txt">
+          <h3>送料無料。</h3>
+          <p>
+            まとめ買い購入でお買い上げいただいた商品は送料無料となっております。
+          </p>
+        </div>
+      </section>
+      <section class="pointWrap--UT flexContainer__start">
+        <div class="pointWrap__no">
+          <p>POINT<br><span class="No">2</span></p>
+        </div>
+        <div class="pointWrap__txt">
+          <h3>注文しなくてもなくなる頃にお届けします。</h3>
+          <p>
+            まとめ買い購入初回のお届けはご注文いただいた翌日〜3日中にお届けいたします。
+          </p>
+          <p>
+            次月からは毎月15日にお届けしております（初回のご注文日から15日まで、あまりお日にちがない場合は、翌々月の15日にお届けとなります）
+          </p>
+        </div>
+      </section>
+      <section class="pointWrap--UT flexContainer__start">
+        <div class="pointWrap__no">
+          <p>POINT<br><span class="No">3</span></p>
+        </div>
+        <div class="pointWrap__txt">
+          <h3>まとめ買い購入のスキップ、変更、解約はいつでも可能。</h3>
+          <p>
+            お届け日の変更も可能です。（お届け予定日の●日前までにご連絡ください）
+          </p>
+          <p>
+            ※特別価格でのご提供のため、最低3ヶ月定期継続していただけるお客様に限らさせて頂きます。（スキップやご解約は3回連続購入後に可能となります。）
+          </p>
+        </div>
+      </section>
+    </div>
+  </section>
+  <section class="listItem4--UT mbLarge">
+    <div class="L-inner">
+      <h3 class="h3-under txt_center">まとめ買い購入対象商品</h3>
+      <ul class="flexContainer__start">
+        {% for Product in Products %}
+          <li>
+            <figure>
+              <img src="{{ asset(Product.main_list_image|no_image_product, 'save_image') }}" alt="{{ Product.name }}" loading="lazy">              
+            </figure>
+            <p><a href="{{ url('product_detail', {'id': Product.id}) }}">{{ Product.name }}</a></p>
+          </li>
+        {% endfor %}   
+      </ul>
+    </div>
+  </section>
+{% endblock %}

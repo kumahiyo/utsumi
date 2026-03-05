@@ -1,0 +1,167 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% autoescape 'safe_textmail' %}
+{{ Order.name01 }} {{ Order.name02 }} 様
+
+この度は内海美容室会員専用ショッピングサイトをご利用いただき、誠にありがとうございます。
+
+本メールは、お客様のご注文情報を受け付けた時点で送信される自動配信メールです。
+下記ご注文内容にお間違えがないかご確認下さい。
+
+商品は１〜３営業日で配送予定です。
+
+店頭受け取りをご希望の方は営業時間をご確認の上、ご来店日時をお問い合わせ欄に必ずご記載ください。
+
+************************************************
+
+【お振込について】
+
+■ゆうちょ銀行の口座からお振込みの場合
+郵貯銀行 記号:15190 番号:49534951　口座名義:ウツミノブヒロ
+
+■他銀行からゆうちょ銀行へのお振込みの場合
+店名:五一八　店番:518　普通　口座番号:4953495　口座名義:ウツミノブヒロ
+
+お振込みでのご購入のお客様は、ご入金の確認がとれ次第、発送とさせていただきます。
+
+・お振り込み手数料はお客様ご負担とさせていただいております。
+・お支払いの確認後、発送手続き開始となります。
+※必ずご注文者様の名義の口座よりお支払いください。(お支払いの確認ができない場合があるため)
+※銀行振込でご不明なことがございましたら店舗までお電話ください。
+
+************************************************
+　ご請求金額
+************************************************
+
+ご注文日時：{{ Order.order_date|date_sec }}
+ご注文番号：{{ Order.order_no }}
+お支払い合計：{{ Order.payment_total|price}}
+お支払い方法：{{ Order.payment_method }}
+{% if BaseInfo.isOptionPoint and Order.Customer is not null %}
+ご利用ポイント：{{ Order.usePoint|number_format }} pt
+加算ポイント：{{ Order.addPoint|number_format }} pt
+{% endif %}
+お問い合わせ：{{ Order.message }}
+
+
+************************************************
+　ご注文商品明細
+************************************************
+
+{% set isShowReducedTaxMess = false %}
+{% for OrderItem in Order.MergedProductOrderItems %}
+商品コード：{{ OrderItem.product_code }}
+商品名：{{ OrderItem.product_name }}  {{ OrderItem.classcategory_name1 }}  {{ OrderItem.classcategory_name2 }} {% if is_reduced_tax_rate(OrderItem) %}※{% set isShowReducedTaxMess = true %}{% endif %}
+
+単価：{{ OrderItem.price_inctax|price }}
+数量：{{ OrderItem.quantity|number_format }}
+
+{% endfor %}
+{% if isShowReducedTaxMess %}※は軽減税率対象商品です。
+{% endif %}
+-------------------------------------------------
+小　計：{{ Order.subtotal|price }}
+手数料：{{ Order.charge|price }}
+送　料：{{ Order.delivery_fee_total|price}}
+{% if Order.taxable_discount < 0 %}
+値引き：{{ Order.taxable_discount|price }}
+{% endif %}
+-------------------------------------------------
+合　計：{{ Order.taxable_total|price }}
+    {% for rate, total in Order.taxable_total_by_tax_rate %}
+    ({{ rate }} %対象：{{ total|price }})
+    {% endfor %}
+{% for item in Order.tax_free_discount_items %}
+-------------------------------------------------
+{{ item.product_name }}：{{ item.total_price|price }}
+{% endfor %}
+============================================
+お支払い合計：{{ Order.payment_total|price }}
+
+************************************************
+　ご注文者情報
+************************************************
+お名前：{{ Order.name01 }} {{ Order.name02 }} 様
+お名前(カナ)：{{ Order.kana01 }} {{ Order.kana02 }} 様
+{% if Order.company_name %}
+会社名：{{ Order.company_name }}
+{% endif %}
+郵便番号：〒{{ Order.postal_code }}
+住所：{{ Order.Pref.name }}{{ Order.addr01 }}{{ Order.addr02 }}
+電話番号：{{ Order.phone_number }}
+メールアドレス：{{ Order.email }}
+
+************************************************
+　配送情報
+************************************************
+
+{%  for Shipping in Order.Shippings %}
+◎お届け先{% if Order.multiple %}{{ loop.index }}{% endif %}
+
+お名前：{{ Shipping.name01 }} {{ Shipping.name02 }} 様
+お名前(カナ)：{{ Shipping.kana01 }} {{ Shipping.kana02 }} 様
+{% if Shipping.company_name %}
+会社名：{{ Shipping.company_name }}
+{% endif %}
+郵便番号：〒{{ Shipping.postal_code }}
+住所：{{ Shipping.Pref.name }}{{ Shipping.addr01 }}{{ Shipping.addr02 }}
+電話番号：{{ Shipping.phone_number }}
+
+配送方法：{{ Shipping.shipping_delivery_name }}
+お届け日：{{ Shipping.shipping_delivery_date is empty ? '指定なし' : Shipping.shipping_delivery_date|date_day }}
+お届け時間：{{ Shipping.shipping_delivery_time|default('指定なし') }}
+
+{%  for OrderItem in Shipping.productOrderItems %}
+商品コード：{{ OrderItem.product_code }}
+商品名：{{ OrderItem.product_name }}  {{ OrderItem.classcategory_name1 }}  {{ OrderItem.classcategory_name2 }}
+数量：{{ OrderItem.quantity|number_format }}
+
+{% endfor %}
+{% endfor %}
+
+{% if Order.complete_mail_message is not empty %}
+{{ Order.complete_mail_message }}
+{% endif %}
+
+============================================
+
+※お客様に大切なお願い※
+
+アルマダスタイル社製商品は、美容室専売品となっております。
+
+そのためインターネットによる転売はされませんようお願いいたします。
+
+【転売が発覚した場合】
+
+・今後アルマダスタイル社製品の販売をお断りさせていただきます。
+・定期購入など特別価格でご購入された商品については、通常価格に変更させていただき、差額分をご請求させていただきます。
+・また残りのストックされている分もお渡しいたしませんので予めご了承ください。
+・転売した商品によって、当店への被害などが生じた場合、賠償請求いたします。
+
+商品やお取引に関するご不明点、ご注文内容の変更などがございましたら、下記までご連絡ください。
+
+━━━━━━━━━━━━━━━━━━
+内海美容室｜会員専用オンラインショップ
+
+【営業時間】
+平　日:16:00～26:00
+土日祝:14:00～NIGHT
+
+住所:広島県福山市春日町3-16-28
+TEL :084-983-0545
+MAIL:info@utsumibiyou-order.com
+LINE:https://lin.ee/cncjOYx
+━━━━━━━━━━━━━━━━━━
+
+このメッセージはお客様へのお知らせ専用ですので、
+このメッセージへの返信としてご質問をお送りいただいても回答できません。
+ご了承ください。
+{% endautoescape %}

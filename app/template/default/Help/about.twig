@@ -1,0 +1,87 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends 'default_frame.twig' %}
+
+{% block main %}
+
+<section class="underImage--UT">
+  <div class="L-inner">
+    <h2>店舗情報</h2>
+   </div>
+</section>
+<div class="underInnerShop--UT">
+  <div class="L-inner__S">
+    <figure>
+      <img src="{{ asset('assets/img/common/staff-photo.jpg', 'user_data') }}" alt="">
+    </figure>
+    <section class="underContents--UT">
+      <h3 class="bgGray">当店について</h3>
+      <p>
+        当店はアルマダスタイルの正規取扱店で、広島県福山市にて営業している美容室です。
+      </p>
+      <p>
+        2015年に内海美容室をオープン後、2号店岩田美容室、3号店福山ウィッグをオープンしました。取り扱っている商品は自信を持っておすすめ出来る商品ばかりです。ぜひ当店の商品をご利用ください。
+      </p>
+    </section>
+    <section class="shopTable--UT">
+      <div class="flexContainer__start">
+        <div class="shopTable--UT__ttl">
+          <h3>店舗概要</h3>
+        </div>
+        <div class="shopTable--UT__data">
+          <table class="Table04">
+            <tbody>
+              {% if BaseInfo.shop_name|default is not empty %}
+                  <tr>
+                      <th>{{ '店舗名'|trans }}</th>
+                      <td>{{ BaseInfo.shop_name }}</td>
+                  </tr>
+              {% endif %}
+              {% if BaseInfo.postal_code|default is not empty %}
+                  <tr>
+                      <th>{{ '郵便番号'|trans }}</th>
+                      <td>{{ '〒'|trans }}{{ BaseInfo.postal_code }}</td>
+                  </tr>
+              {% endif %}
+              {% if BaseInfo.postal_code|default is not empty %}
+                  <tr>
+                      <th>{{ '住所'|trans }}</th>
+                      <td>{{ BaseInfo.pref }}{{ BaseInfo.addr01 }}{{ BaseInfo.addr02 }}</td>
+                  </tr>
+              {% endif %}
+              {% if BaseInfo.phone_number|default is not empty %}
+                  <tr>
+                      <th>{{ '電話番号'|trans }}</th>
+                      <td>{{ BaseInfo.phone_number }}</td>
+                  </tr>
+              {% endif %}
+              <tr>
+                <th>代表者</th>
+                <td>内海 亘博</td>
+              </tr>
+              {% if BaseInfo.business_hour|default is not empty %}
+                  <tr>
+                      <th>{{ '営業日/時間'|trans }}</th>
+                      <td>{{ BaseInfo.business_hour }}</td>
+                  </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="shopMap mbLarge">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3287.6918331368006!2d133.4106970155287!3d34.51069610087772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35511418991624cb%3A0xf6dfe9592943d9c3!2z5YaF5rW3576O5a655a6k!5e0!3m2!1sja!2sjp!4v1667580390619!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+  </div>
+</div>
+
+{% endblock %}

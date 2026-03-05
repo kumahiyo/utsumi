@@ -1,0 +1,41 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+<div class="headerWrapper--UT">
+  <h1 class="headerLogo--UT">
+    <a href="{{ url('homepage') }}">
+      <img src="{{ asset('assets/img/common/header-logo.png', 'user_data') }}" alt="{{ BaseInfo.shop_name }}" width="176">
+    </a>
+  </h1>
+  <div class="header__nav--UT">
+    <nav class="j-gNavi--UT">
+      <ul class="j-gNavi__list--UT">
+        <li class="list01"><a href="{{ url('homepage') }}">ホーム</a></li>
+        <li class="list03"><a href="{{ url('product_list') }}">商品一覧</a></li>
+        <li class="list07" style="display: none;"><a href="{{ url('product_list') }}?category_id={{ treatment_menu_id }}">施術メニュー</a></li>
+        <li class="list02"><a href="{{ url('user_data', {'route': 'teiki'}) }}">定期購入</a></li>
+        <li class="list04"><a href="{{ url('mypage') }}">注文履歴</a></li>
+        <li class="list05"><a href="{{ url('help_guide') }}">初めての方へ</a></li>
+        <li class="list06"><a href="{{ url('contact') }}">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="header__navSP--UT">
+    <nav class="j-gNaviSP--UT">
+      <ul class="j-gNavi__listSP--UT">
+        <li class="list01">
+            <a href="https://www.utsumibiyou-order.com/products/list?category_id=8"><figure><img src="{{ asset('assets/img/common/icn_sale.png', 'user_data') }}" alt="" width="35"></figure>特集</a>
+        </li>
+        <li class="list02"><a href="{{ url('mypage_favorite') }}"><figure><img src="{{ asset('assets/img/common/icn_fav.png', 'user_data') }}" alt="" width="35"></figure>お気に入り</a></li>
+        <li class="list03"><a href="{{ url('mypage') }}"><figure><img src="{{ asset('assets/img/common/icn_rireki.png', 'user_data') }}" alt="" width="35"></figure>購入履歴</a></li>
+      </ul>
+    </nav>          
+  </div>
+</div>

@@ -1,0 +1,13 @@
+parameters:
+    # custom parameters
+    custom.category.treatment_menu_id: 367
+
+twig:
+    globals:
+        treatment_menu_id: '%custom.category.treatment_menu_id%'
+
+services:
+    Customize\Service\OrderPdfService:
+        public: false
+        autowire: true
+        decorates: Eccube\Service\OrderPdfService
