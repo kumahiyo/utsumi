@@ -19,6 +19,7 @@ use Plugin\Securitychecker4\Controller\ConfigController;
 use Plugin\Securitychecker4\Entity\Config;
 use Plugin\Securitychecker4\Repository\ConfigRepository;
 use Plugin\Securitychecker4\Service\Securitychecker4Service;
+use Symfony\Component\Filesystem\Filesystem;
 
 class Securitychecker4Test extends EccubeTestCase
 {
@@ -83,12 +84,19 @@ class Securitychecker4Test extends EccubeTestCase
 
     public function testSearchResources()
     {
+        $dir = self::$container->getParameter('kernel.project_dir').'/html/dummy';
+        $fs = new Filesystem();
+        $fs->mkdir($dir);
+        $fs->touch($dir.'/dummy.txt');
+
         // 外部から閲覧可能なパスを指定する
-        $path = 'html';
-        $expected = ['/html/plugin/.gitkeep'];
+        $path = 'html/dummy';
+        $expected = ['/html/dummy/dummy.txt'];
         $actual = $this->Securitychecker4Service->searchResources($path);
 
         $this->assertEquals($expected, $actual);
+ 
+        $fs->remove($dir);
     }
 
     public function testSearchResourcesWithFile()

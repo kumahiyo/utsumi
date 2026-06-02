@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f6881a40d43c61b4445eda904afdefc",
+    "content-hash": "f6457b98da14620f3bc38e3ec3978a8a",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2689,10 +2689,10 @@
         },
         {
             "name": "ec-cube/securitychecker4",
-            "version": "4.1.1",
+            "version": "4.1.2",
             "dist": {
                 "type": "tar",
-                "url": "https://package-api-c2.ec-cube.net/ec-cube/securitychecker4/4.1.1/Securitychecker4-4.1.1.tgz"
+                "url": "https://package-api-c2.ec-cube.net/ec-cube/securitychecker4/4.1.2/Securitychecker4-4.1.2.tgz"
             },
             "require": {
                 "ec-cube/plugin-installer": "~0.0.8 || ^2.0"
@@ -2714,7 +2714,7 @@
             "transport-options": {
                 "http": {
                     "header": [
-                        "X-ECCUBE-KEY: "
+                        "X-ECCUBE-KEY: 33f7b3afd5caec1251b7e48149705fff0f2ac3eb"
                     ]
                 }
             }
