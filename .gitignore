@@ -8,6 +8,7 @@ node_modules
 !/var/.htaccess
 /app/Plugin/*
 !/app/Plugin/.gitkeep
+!/app/Plugin/Securitychecker4
 /app/PluginData/*
 !/app/PluginData/.gitkeep
 /app/template/*
