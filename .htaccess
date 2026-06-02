@@ -71,14 +71,13 @@
   # 拡張子.webpファイルはContent-Typeとしてimage/webpを返す
   AddType image/webp .webp
 </IfModule>
-AuthUserFile "/home/xs159588/utsumibiyou-order.com/htpasswd/.htpasswd"
-AuthName "Member Site"
-AuthType BASIC
-require valid-user
+#AuthUserFile "/home/xs159588/utsumibiyou-order.com/htpasswd/.htpasswd"
+#AuthName "Member Site"
+#AuthType BASIC
 
-# 管理画面だけBASIC認証
-SetEnvIf Request_URI "^/JwEArGxg8Nmd" admin_path  # ^/adminは, 管理画面URLに応じて変更してください
-<RequireAll>
-    Require all granted
-    Require not env admin_path
-</RequireAll>
+# 管理画面だけBASIC認証は岡い
+SetEnvIf Request_URI "^/JwEArGxg8Nmd" admin_path
+#<RequireAny>
+#    Require env admin_path
+#    Require valid-user
+#</RequireAny>

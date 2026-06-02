@@ -22,6 +22,20 @@ services:
     volumes:
       - mysql-database:/var/lib/mysql
     ports:
-      - 13306:3306
+      - "13306:3306"
+    networks:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin_container
+    restart: always
+    ports:
+      - "3000:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_ARBITRARY: 1
+    depends_on:
+      - mysql
     networks:
       - backend
