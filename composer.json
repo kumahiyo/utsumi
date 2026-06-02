@@ -42,7 +42,7 @@
         "ec-cube/eccubepaymentlite4": "1.1.1",
         "ec-cube/eccubetrumbowyg4": "^2.0",
         "ec-cube/etunarecentlypurchaseitem": "^2.0",
-        "ec-cube/mailmagazine4": "^4.1",
+        "ec-cube/mailmagazine4": "4.1.4",
         "ec-cube/membersonly4": "^2.0",
         "ec-cube/pinpointsale": "^1.1",
         "ec-cube/plugin-installer": "^2.0",
