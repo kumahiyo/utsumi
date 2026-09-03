@@ -10,6 +10,7 @@ node_modules
 !/app/Plugin/.gitkeep
 !/app/Plugin/Securitychecker4
 !/app/Plugin/MailMagazine4
+!/app/Plugin/EccubePaymentLite4
 /app/PluginData/*
 !/app/PluginData/.gitkeep
 /app/template/*
