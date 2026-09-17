@@ -7,6 +7,7 @@ use Eccube\Entity\Order;
 use Eccube\Repository\OrderRepository;
 use Plugin\EccubePaymentLite4\Entity\PaymentStatus;
 use Plugin\EccubePaymentLite4\Repository\PaymentStatusRepository;
+use Plugin\EccubePaymentLite4\Service\PaymentNotificationIpValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,13 +22,19 @@ class DeferredPaymentStatusChangeNotificationController extends AbstractControll
      * @var PaymentStatusRepository
      */
     private $paymentStatusRepository;
+    /**
+     * @var PaymentNotificationIpValidator
+     */
+    private $paymentNotificationIpValidator;
 
     public function __construct(
         OrderRepository $orderRepository,
-        PaymentStatusRepository $paymentStatusRepository
+        PaymentStatusRepository $paymentStatusRepository,
+        PaymentNotificationIpValidator $paymentNotificationIpValidator
     ) {
         $this->orderRepository = $orderRepository;
         $this->paymentStatusRepository = $paymentStatusRepository;
+        $this->paymentNotificationIpValidator = $paymentNotificationIpValidator;
     }
 
     /**
@@ -40,6 +47,12 @@ class DeferredPaymentStatusChangeNotificationController extends AbstractControll
     {
         logs('gmo_epsilon')->addInfo('後払い決済ステータス変更通知: start.');
         logs('gmo_epsilon')->addInfo('POST param argument '.print_r($request->getContent(), true));
+
+        // 送信元IPアドレスの検証
+        if (!$this->paymentNotificationIpValidator->validate($request)) {
+            return new Response(0);
+        }
+
         /** @var Order $Order */
         $Order = $this->orderRepository->findOneBy([
             'gmo_epsilon_order_no' => $request->get('order_number'),

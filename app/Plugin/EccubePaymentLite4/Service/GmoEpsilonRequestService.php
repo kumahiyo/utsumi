@@ -32,7 +32,7 @@ class GmoEpsilonRequestService
     /**
      * リクエストを送信
      *
-     * @return array or boolean
+     * @return array
      */
     public function sendData($url, $arrParameter, $version = null)
     {
@@ -45,25 +45,31 @@ class GmoEpsilonRequestService
             $response = $client->post($url, [
                             'form_params' => $arrParameter,
                         ]);
-        } catch (\RuntimeException $e) {
-            logs('gmo_epsilon')->info('CurlException. url='.$url.' parameter='.print_r($arrParameter, true));
-
-            return $e->getErrorNo();
         } catch (BadResponseException $e) {
-            logs('gmo_epsilon')->info('BadResponseException. url='.$url.' parameter='.print_r($arrParameter, true));
-
-            return false;
+            logs('gmo_epsilon')->error('BadResponseException: '.$e->getMessage(), [
+                'url' => $url,
+                'parameter' => $arrParameter,
+            ]);
+            throw $e;
+        } catch (\RuntimeException $e) {
+            logs('gmo_epsilon')->error('RuntimeException: '.$e->getMessage(), [
+                'url' => $url,
+                'parameter' => $arrParameter,
+            ]);
+            throw $e;
         } catch (\Exception $e) {
-            logs('gmo_epsilon')->info('Exception. url='.$url.' parameter='.print_r($arrParameter, true));
-
-            return false;
+            logs('gmo_epsilon')->error('Exception: '.$e->getMessage(), [
+                'url' => $url,
+                'parameter' => $arrParameter,
+            ]);
+            throw $e;
         }
 
         $response = $response->getBody(true);
 
         if (is_null($response)) {
-            // $msg = 'レスポンスデータエラー: レスポンスがありません。';
-            return false;
+            logs('gmo_epsilon')->error('決済サーバーからのレスポンスが空でした');
+            throw new \Exception('決済サーバーからのレスポンスが空です');
         }
 
         // Shift-JISをUNICODEに変換する

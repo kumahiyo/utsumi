@@ -41,5 +41,7 @@ class GetProductInformationFromOrderService
 
             return $itemInfo;
         }
+
+        return [];
     }
 }

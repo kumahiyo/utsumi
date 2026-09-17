@@ -18,15 +18,12 @@ class RequestCard3Service
         $this->gmoEpsilonRequestService = $gmoEpsilonRequestService;
     }
 
-    public function send($url)
+    public function send(string $url, bool $dontRedirect = true): bool
     {
         $client = new Client();
-        $Response = $client
-            ->get($url);
-        if ($Response->getReasonPhrase() === 'OK') {
-            return true;
-        }
+        $Response = $client->get($url, ['allow_redirects' => !$dontRedirect]);
 
-        return false;
+        $statusCode = $Response->getStatusCode();
+        return $statusCode === 200 || ($dontRedirect && $statusCode === 302);
     }
 }

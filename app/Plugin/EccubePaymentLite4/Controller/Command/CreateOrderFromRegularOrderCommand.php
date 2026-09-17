@@ -25,6 +25,7 @@ use Plugin\EccubePaymentLite4\Service\Mail\RegularSpecifiedCountNotificationMail
 use Plugin\EccubePaymentLite4\Service\Method\Credit;
 use Plugin\EccubePaymentLite4\Service\Method\Reg_Credit;
 use Plugin\EccubePaymentLite4\Service\RegularCreditService;
+use Plugin\EccubePaymentLite4\Service\UpdateGmoEpsilonOrderService;
 use Plugin\EccubePaymentLite4\Service\UpdateNormalPaymentOrderService;
 use Plugin\EccubePaymentLite4\Service\UpdateRegularOrderService;
 use Plugin\EccubePaymentLite4\Service\UpdateRegularStatusService;
@@ -113,6 +114,10 @@ class CreateOrderFromRegularOrderCommand extends Command
      * @var RequestGetSales2Service
      */
     private $requestGetSales2Service;
+    /**
+     * @var UpdateGmoEpsilonOrderService
+     */
+    private $updateGmoEpsilonOrderService;
 
     public function __construct(
         RegularCreditService $regularCreditService,
@@ -131,7 +136,8 @@ class CreateOrderFromRegularOrderCommand extends Command
         IsExpireCreditCardService $isExpireCreditCardService,
         UpdateRegularStatusService $updateRegularStatusService,
         RegularSpecifiedCountNotificationMailService $regularSpecifiedCountNotificationMailService,
-        RequestGetSales2Service $requestGetSales2Service
+        RequestGetSales2Service $requestGetSales2Service,
+        UpdateGmoEpsilonOrderService $updateGmoEpsilonOrderService
     ) {
         parent::__construct();
 
@@ -152,6 +158,7 @@ class CreateOrderFromRegularOrderCommand extends Command
         $this->updateRegularStatusService = $updateRegularStatusService;
         $this->regularSpecifiedCountNotificationMailService = $regularSpecifiedCountNotificationMailService;
         $this->requestGetSales2Service = $requestGetSales2Service;
+        $this->updateGmoEpsilonOrderService = $updateGmoEpsilonOrderService;
     }
 
     protected function configure()
@@ -246,6 +253,7 @@ class CreateOrderFromRegularOrderCommand extends Command
                     logs('gmo_epsilon')->addError('定期ID: '.$RegularOrder->getId().' エラーコード: '.$results['err_code'].' エラーメッセージ: '.$results['message']);
                     continue;
                 }
+
                 $this->io->text('=== Send card3.cgi request for regular order id '.$RegularOrder->getId().'. ===');
                 $card3cgiResult = $this->requestCard3Service->send($results['redirectUrl']);
                 if (!$card3cgiResult) {
@@ -254,6 +262,7 @@ class CreateOrderFromRegularOrderCommand extends Command
                     logs('gmo_epsilon')->addError('定期ID: '.$RegularOrder->getId().'について、card3.cgiのリクエスト時に予期せぬエラーが発生しました。');
                     continue;
                 }
+
                 $getSalesResult = $this
                     ->requestGetSales2Service
                     ->handle(null, $results['order_no']);
@@ -263,6 +272,15 @@ class CreateOrderFromRegularOrderCommand extends Command
                     logs('gmo_epsilon')->addError('定期ID: '.$RegularOrder->getId().'について、イプシロン決済サービスに有効な決済が登録されませんでした。 state = '.$getSalesResult['state']);
                     continue;
                 }
+
+                // v1.1.1まではcard3.cgiのリダイレクト先のコントローラー (EpsilonPaymentCompleteController::complete) で処理していたが、
+                // RequestCard3ServiceでのGETアクセスでリダイレクトしないようにしたのでここで処理
+                $transCode = $getSalesResult['trans_code'];
+                $gmoEpsilonOrderNo = $results['order_no'];
+                $this->updateGmoEpsilonOrderService->updateAfterMakingPayment($Order, $transCode, $gmoEpsilonOrderNo);
+                $this->updateRegularOrderService->updateAfterMakingPayment($RegularOrder);
+
+                logs('gmo_epsilon')->info('定期ID: '.$RegularOrder->getId().' の受注作成が完了しました');
             } elseif (!is_null($Order->getPayment()) && $Order->getPayment()->getMethodClass() === Cash::class) {
                 $this->updateNormalPaymentOrderService->updateAfterMakingOrder($Order);
                 $this->updateRegularOrderService->updateAfterMakingPayment($RegularOrder);

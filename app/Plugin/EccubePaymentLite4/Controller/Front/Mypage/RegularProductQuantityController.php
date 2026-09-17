@@ -5,14 +5,13 @@ namespace Plugin\EccubePaymentLite4\Controller\Front\Mypage;
 use Eccube\Controller\AbstractController;
 use Plugin\EccubePaymentLite4\Entity\MyPageRegularSetting;
 use Plugin\EccubePaymentLite4\Entity\RegularOrder;
-use Plugin\EccubePaymentLite4\Entity\RegularOrderItem;
 use Plugin\EccubePaymentLite4\Repository\RegularOrderRepository;
-use Plugin\EccubePaymentLite4\Repository\RegularOrderItemRepository;
 use Plugin\EccubePaymentLite4\Form\Type\Front\RegularProductQuantityType;
 use Plugin\EccubePaymentLite4\Service\IsActiveRegularService;
 use Plugin\EccubePaymentLite4\Service\IsMypageRegularSettingService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Plugin\EccubePaymentLite4\Service\ModifyRegularOrderService;
 
@@ -22,10 +21,6 @@ class RegularProductQuantityController extends AbstractController
      * @var RegularOrderRepository
      */
     private $regularOrderRepository;
-    /**
-     * @var RegularOrderItemRepository
-     */
-    private $regularOrderItemRepository;
     /**
      * @var IsMypageRegularSettingService
      */
@@ -41,13 +36,11 @@ class RegularProductQuantityController extends AbstractController
 
     public function __construct(
         RegularOrderRepository $regularOrderRepository,
-        RegularOrderItemRepository $regularOrderItemRepository,
         IsMypageRegularSettingService $isMypageRegularSettingService,
         IsActiveRegularService $isActiveRegularService,
         ModifyRegularOrderService $modifyRegularOrderService
     ) {
         $this->regularOrderRepository = $regularOrderRepository;
-        $this->regularOrderItemRepository = $regularOrderItemRepository;
         $this->isMypageRegularSettingService = $isMypageRegularSettingService;
         $this->isActiveRegularService = $isActiveRegularService;
         $this->modifyRegularOrderService = $modifyRegularOrderService;

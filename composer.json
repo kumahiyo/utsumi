@@ -39,7 +39,7 @@
         "ec-cube/customergroup": "2.0.4",
         "ec-cube/databackup4": "^1.0",
         "ec-cube/deliveryfreeproduct": "^1.1",
-        "ec-cube/eccubepaymentlite4": "1.1.1",
+        "ec-cube/eccubepaymentlite4": "1.1.2",
         "ec-cube/eccubetrumbowyg4": "^2.0",
         "ec-cube/etunarecentlypurchaseitem": "^2.0",
         "ec-cube/mailmagazine4": "4.1.4",

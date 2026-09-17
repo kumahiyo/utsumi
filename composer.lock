@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8eacb75b1c57d5f40d84a35ec57272d",
+    "content-hash": "462827548e4ffeee562369ce9b4af592",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2413,10 +2413,10 @@
         },
         {
             "name": "ec-cube/eccubepaymentlite4",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "dist": {
                 "type": "tar",
-                "url": "https://package-api-c2.ec-cube.net/ec-cube/eccubepaymentlite4/1.1.1/EccubePaymentLite4-1.1.1.tgz"
+                "url": "https://package-api-c2.ec-cube.net/ec-cube/eccubepaymentlite4/1.1.2/EccubePaymentLite4-1.1.2.tgz"
             },
             "require": {
                 "ec-cube/plugin-installer": "~0.0.6 || ^2.0"

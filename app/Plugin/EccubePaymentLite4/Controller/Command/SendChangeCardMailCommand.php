@@ -81,7 +81,7 @@ class SendChangeCardMailCommand extends Command
         if (!$this->isActiveRegularService->isActive()) {
             $this->io->text('=== Regular setting is not Active. ===');
 
-            return;
+            return 0;
         }
         $this->io->text('=== SendChangeCardMailCommand start. ===');
 
@@ -120,5 +120,7 @@ class SendChangeCardMailCommand extends Command
 
         logs('gmo_epsilon')->addInfo('=== SendChangeCardMailCommand End ===');
         $this->io->text('=== SendChangeCardMailCommand end. ===');
+
+        return 0;
     }
 }

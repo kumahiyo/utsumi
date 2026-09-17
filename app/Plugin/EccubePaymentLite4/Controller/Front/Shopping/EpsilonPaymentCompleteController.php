@@ -132,6 +132,7 @@ class EpsilonPaymentCompleteController extends AbstractController
 
         // 定期一覧より受注一括作成を行った場合は、もう一度定期受注作成へ
         if ($results['route'] === 'eccube_payment_lite4_admin_regular_index_add') {
+            // NOTE: card3.cgiへのアクセスでリダイレクトしないようにしたので、このifは評価されません
             return $this->processingWhenCreatingRegularOrderIndex(
                 $Order,
                 $results['trans_code'],

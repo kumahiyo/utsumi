@@ -66,7 +66,7 @@ class RegularOrderDeliveryNoticeCommand extends Command
         if (!$this->isActiveRegularService->isActive()) {
             $this->io->text('=== Regular setting is not Active. ===');
 
-            return;
+            return 0;
         }
         $this->io->text('=== RegularOrderDeliveryNotice start. ===');
         // 事前お知らせメール送信
@@ -77,7 +77,7 @@ class RegularOrderDeliveryNoticeCommand extends Command
             $this->io->text('=== regular delivery notification email date is not found. ===');
             $this->io->text('=== RegularOrderDeliveryNoticeCommand end. ===');
 
-            return;
+            return 0;
         }
         $deliveryNoticeStartDate = new \DateTime('today');
         $deliveryNoticeStartDate->modify('+'.$Config->getRegularDeliveryNotificationEmailDays().' day');
@@ -105,5 +105,7 @@ class RegularOrderDeliveryNoticeCommand extends Command
             }
         }
         $this->io->text('=== RegularOrderDeliveryNotice end. ===');
+
+        return 0;
     }
 }

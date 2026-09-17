@@ -1,5 +1,6 @@
 parameters:
   gmo_epsilon:
+    allowed_notification_ips: ['210.254.37.214', '210.254.37.215']
     pay_id:
       credit: 1
       reg_credit: 2

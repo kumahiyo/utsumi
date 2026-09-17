@@ -8,6 +8,7 @@ use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Repository\OrderRepository;
 use Plugin\EccubePaymentLite4\Entity\PaymentStatus;
 use Plugin\EccubePaymentLite4\Service\GmoEpsilonOrderNoService;
+use Plugin\EccubePaymentLite4\Service\PaymentNotificationIpValidator;
 use Plugin\EccubePaymentLite4\Repository\PaymentStatusRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,17 +32,23 @@ class ConveniAndPayeasyNotificationController extends AbstractController
      * @var PaymentStatusRepository
      */
     private $paymentStatusRepository;
+    /**
+     * @var PaymentNotificationIpValidator
+     */
+    private $paymentNotificationIpValidator;
 
     public function __construct(
         OrderRepository $orderRepository,
         OrderStatusRepository $orderStatusRepository,
         GmoEpsilonOrderNoService $gmoEpsilonOrderNoService,
-        PaymentStatusRepository $paymentStatusRepository
+        PaymentStatusRepository $paymentStatusRepository,
+        PaymentNotificationIpValidator $paymentNotificationIpValidator
     ) {
         $this->orderRepository = $orderRepository;
         $this->orderStatusRepository = $orderStatusRepository;
         $this->gmoEpsilonOrderNoService = $gmoEpsilonOrderNoService;
         $this->paymentStatusRepository = $paymentStatusRepository;
+        $this->paymentNotificationIpValidator = $paymentNotificationIpValidator;
     }
 
     /**
@@ -54,6 +61,11 @@ class ConveniAndPayeasyNotificationController extends AbstractController
     {
         logs('gmo_epsilon')->addInfo('コンビニ・ペイジー決済入金結果通知: start.');
         logs('gmo_epsilon')->addInfo('コンビニ・ペイジー決済入金結果通知: '.print_r($request->getContent(), true));
+        // 送信元IPアドレスの検証
+        if (!$this->paymentNotificationIpValidator->validate($request)) {
+            return new Response(0);
+        }
+
         // 受注情報を取得
         $Order = $this->orderRepository->findOneBy([
             'order_no' => $this->gmoEpsilonOrderNoService->get($request->get('order_number')),

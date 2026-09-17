@@ -53,6 +53,10 @@ class Reception3DSAuthenticationController extends AbstractController
      */
     protected $orderHelper;
 
+    /**
+     * @var Config
+     */
+    private $Config;
 
     public function __construct(
         ConfigRepository $configRepository,
@@ -225,6 +229,8 @@ class Reception3DSAuthenticationController extends AbstractController
 
             return $this->redirectToRoute('shopping_error');
         }
+
+        return null;
     }
 
     /**

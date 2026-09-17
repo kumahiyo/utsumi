@@ -8,6 +8,7 @@
 
 namespace Plugin\EccubePaymentLite4\Service;
 
+use Doctrine\ORM\NoResultException;
 use Eccube\Repository\TaxRuleRepository;
 use Eccube\Entity\Master\TaxType;
 use Plugin\EccubePaymentLite4\Entity\RegularOrder;
@@ -74,6 +75,7 @@ class ModifyRegularOrderService
                 continue;
             }
             $ProductClass = $RegularOrderItem->getProductClass();
+            $taxRule = null;
             try {
                 $taxRule = $this->taxRuleRepository->getByRule($ProductClass->getProduct(), $ProductClass);
             } catch (NoResultException $e) {

@@ -51,12 +51,5 @@
                 alert('お届け日の取得に失敗しました。');
             });
         });
-
-        if ($('#shopping_order_RegularCycles_0').length) {
-            var r = $('input[name="_shopping_order[RegularCycles]"]:checked').val();
-            if (r == undefined) {
-                $('#shopping_order_RegularCycles_0').attr('checked', true);
-            }
-        }
     });
 </script>

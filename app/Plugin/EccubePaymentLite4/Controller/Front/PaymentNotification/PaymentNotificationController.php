@@ -10,7 +10,6 @@ use Eccube\Repository\CartItemRepository;
 use Eccube\Repository\MailHistoryRepository;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Repository\OrderRepository;
-use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
@@ -18,6 +17,7 @@ use Plugin\EccubePaymentLite4\Entity\Config;
 use Plugin\EccubePaymentLite4\Entity\PaymentStatus;
 use Plugin\EccubePaymentLite4\Repository\ConfigRepository;
 use Plugin\EccubePaymentLite4\Repository\PaymentStatusRepository;
+use Plugin\EccubePaymentLite4\Service\PaymentNotificationIpValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,9 +37,21 @@ class PaymentNotificationController extends AbstractController
      */
     private $configRepository;
     /**
+     * @var OrderStatusRepository
+     */
+    private $orderStatusRepository;
+    /**
      * @var PurchaseFlow
      */
     protected $purchaseFlow;
+    /**
+     * @var MailService
+     */
+    private $mailService;
+    /**
+     * @var MailHistoryRepository
+     */
+    private $mailHistoryRepository;
     /**
      * @var CartRepository
      */
@@ -48,6 +60,10 @@ class PaymentNotificationController extends AbstractController
      * @var CartItemRepository
      */
     private $cartItemRepository;
+    /**
+     * @var PaymentNotificationIpValidator
+     */
+    private $paymentNotificationIpValidator;
 
     public function __construct(
         OrderRepository $orderRepository,
@@ -55,22 +71,22 @@ class PaymentNotificationController extends AbstractController
         ConfigRepository $configRepository,
         OrderStatusRepository $orderStatusRepository,
         PurchaseFlow $shoppingPurchaseFlow,
-        CartService $cartService,
         MailService $mailService,
         MailHistoryRepository $mailHistoryRepository,
         CartRepository $cartRepository,
-        CartItemRepository $cartItemRepository
+        CartItemRepository $cartItemRepository,
+        PaymentNotificationIpValidator $paymentNotificationIpValidator
     ) {
         $this->orderRepository = $orderRepository;
         $this->paymentStatusRepository = $paymentStatusRepository;
         $this->configRepository = $configRepository;
         $this->orderStatusRepository = $orderStatusRepository;
         $this->purchaseFlow = $shoppingPurchaseFlow;
-        $this->cartService = $cartService;
         $this->mailService = $mailService;
         $this->mailHistoryRepository = $mailHistoryRepository;
         $this->cartRepository = $cartRepository;
         $this->cartItemRepository = $cartItemRepository;
+        $this->paymentNotificationIpValidator = $paymentNotificationIpValidator;
     }
 
     /**
@@ -87,6 +103,11 @@ class PaymentNotificationController extends AbstractController
         sleep(10);
         logs('gmo_epsilon')->addInfo('決済完了通知: start.');
         logs('gmo_epsilon')->addInfo('POST param argument '.print_r($request->getContent(), true));
+
+        // 送信元IPアドレスの検証
+        if (!$this->paymentNotificationIpValidator->validate($request)) {
+            return new Response(0);
+        }
         /** @var Config $Config */
         $Config = $this->configRepository->find(1);
         $contract_code = $Config->getContractCode();

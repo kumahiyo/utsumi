@@ -68,6 +68,7 @@ class UpdateRegularOrderService
                 continue;
             }
             $ProductClass = $RegularOrderItem->getProductClass();
+            $taxRule = null;
             try {
                 $taxRule = $this->taxRuleRepository->getByRule($ProductClass->getProduct(), $ProductClass);
             } catch (NoResultException $e) {

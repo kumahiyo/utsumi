@@ -30,12 +30,19 @@ class RemoveGuestPurchaseBtnWhenShoppingLogin implements EventSubscriberInterfac
     public function index(TemplateEvent $templateEvent)
     {
         $Cart = $this->cartService->getCart();
-        /* @var CartItem $cartItem */
-        $cartItem = $Cart->getItems()->first();
+        if (is_null($Cart)) {
+            return;
+        }
+        $cartItems = $Cart->getItems();
+        if ($cartItems->isEmpty()) {
+            return;
+        }
+
+        /** @var CartItem $cartItem */
+        $cartItem = $cartItems->first();
         if ($cartItem->getProductClass()->getSaleType()->getName() !== '定期商品') {
             return;
         }
-        $templateEvent
-            ->addSnippet('@EccubePaymentLite4/default/Shopping/remove_guest_purchase_btn.twig');
+        $templateEvent->addSnippet('@EccubePaymentLite4/default/Shopping/remove_guest_purchase_btn.twig');
     }
 }

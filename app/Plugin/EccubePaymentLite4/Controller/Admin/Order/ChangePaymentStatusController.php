@@ -39,6 +39,10 @@ class ChangePaymentStatusController extends AbstractController
      */
     public function index(Request $request)
     {
+        if (!($request->isXmlHttpRequest() && $this->isTokenValid())) {
+            return $this->json(['status' => 'NG'], 400);
+        }
+
         $shippingId = (int) $request->request->get('shippingId');
         /** @var Shipping $Shipping */
         $Shipping = $this->shippingRepository->find($shippingId);
