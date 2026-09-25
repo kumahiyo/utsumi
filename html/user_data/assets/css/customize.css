@@ -538,7 +538,7 @@ snsエリア
 }
 
 /* メルマガの変更を不可にする（hobspotの配信停止からしてもらう） */
-.ec-mypageRole .ec-borderedDefs dl:last-child{
+.ec-mypageRole .ec-borderedDefs dl:has(input[name="entry[mailmaga_flg]"]){
   display: none;
 }
 

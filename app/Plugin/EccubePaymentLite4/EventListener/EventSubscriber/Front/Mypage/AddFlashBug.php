@@ -30,11 +30,11 @@ class AddFlashBug implements EventSubscriberInterface
 
     public function frontMypageDeliveryEditComplete(EventArgs $eventArgs)
     {
-        $this->session->getFlashBag()->add('eccube.front.warning', '定期商品のお届け先は変更されませんのでご注意ください。');
+        $this->session->getFlashBag()->add('eccube.front.warning', '定期購入中の方は、別途『定期お届け先の変更』手続きが必要です。ページ下部公式LINEまでご連絡ください');
     }
 
     public function frontMypageChangeIndexComplete(EventArgs $eventArgs)
     {
-        $this->session->getFlashBag()->add('eccube.front.warning', '定期商品のお届け先は変更されませんのでご注意ください。');
+        $this->session->getFlashBag()->add('eccube.front.warning', '定期購入中の方は、別途『定期お届け先の変更』手続きが必要です。ページ下部公式LINEまでご連絡ください');
     }
 }
