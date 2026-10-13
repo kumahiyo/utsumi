@@ -147,6 +147,7 @@ gmo_epsilon:
       use_conveni_not_fount: 選択できる利用コンビニがありません。
       credit_card_for_token_payment: クレジットカード情報の入力
       regular_cycle: お届けサイクル
+      regular_cycle_unselected: お届けサイクルを選択してください。
       error: システムエラーが発生しました。
     mypage:
       nav__credit_card: カード編集

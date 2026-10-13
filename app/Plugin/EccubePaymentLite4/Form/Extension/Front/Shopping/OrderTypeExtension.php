@@ -22,8 +22,10 @@ use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class OrderTypeExtension extends AbstractTypeExtension
@@ -59,6 +61,10 @@ class OrderTypeExtension extends AbstractTypeExtension
      * @var ConvenienceStoreRepository
      */
     private $convenienceStoreRepository;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
     public function __construct(
         EccubeConfig $eccubeConfig,
@@ -69,7 +75,8 @@ class OrderTypeExtension extends AbstractTypeExtension
         IsRegularPaymentService $isRegularPaymentService,
         SaveRegularOrderService $saveRegularOrderService,
         GetProductClassesRegularCycles $getProductClassesRegularCycles,
-        ConvenienceStoreRepository $convenienceStoreRepository
+        ConvenienceStoreRepository $convenienceStoreRepository,
+        RequestStack $requestStack
     ) {
         $this->paymentRepository = $paymentRepository;
         $this->eccubeConfig = $eccubeConfig;
@@ -80,6 +87,7 @@ class OrderTypeExtension extends AbstractTypeExtension
         $this->saveRegularOrderService = $saveRegularOrderService;
         $this->getProductClassesRegularCycles = $getProductClassesRegularCycles;
         $this->convenienceStoreRepository = $convenienceStoreRepository;
+        $this->requestStack = $requestStack;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -177,6 +185,16 @@ class OrderTypeExtension extends AbstractTypeExtension
                 return;
             }
             if (is_null($event->getForm()['RegularCycles']->getData())) {
+                // 確認画面への遷移時のみ必須。checkout 等は確認画面で選択済みのためセッション値を使う。
+                $request = $this->requestStack->getCurrentRequest();
+                if (!$event->getForm()->getConfig()->getOption('skip_add_form')
+                    && $request
+                    && $request->attributes->get('_route') === 'shopping_confirm') {
+                    $event->getForm()['RegularCycles']->addError(
+                        new FormError(trans('gmo_epsilon.front.shopping.regular_cycle_unselected'))
+                    );
+                }
+
                 return;
             }
             $this
