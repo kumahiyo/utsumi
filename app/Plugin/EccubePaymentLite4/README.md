@@ -1,13 +1,9 @@
 
 # EccubePaymentLite4 プラグインのカスタマイズした点
 
-2026/09/24
-    EventListener/EventSubscriber/Front/Mypage/AddFlashBug.php
-    表示文言変更
+commit hash:
 
-    <購入確認画面でお届けサイクルを選択しないと500エラー>
-        app/Plugin/EccubePaymentLite4/Resource/locale/messages.ja.yaml
-        150行目`regular_cycle_unselected`を追加
+- 3d3c5c64b4a7e01e9602a2877d6755119ed6aa8c
+- 0164a840890e6aa388bb68452a315372a90e07c8
+- af73549ab9cde477938ec6e97d8349c1024fb64b
 
-        app/Plugin/EccubePaymentLite4/Form/Extension/Front/Shopping/OrderTypeExtension.php
-        188-197行目の処理およびそれに必要なクラスの読み込み
