@@ -5,11 +5,7 @@ namespace Plugin\EccubePaymentLite4\EventListener\EventSubscriber\Front\Shopping
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Master\SaleType;
 use Eccube\Entity\Order;
-use Eccube\Entity\Shipping;
 use Eccube\Event\TemplateEvent;
-use Eccube\Service\Payment\Method\Cash;
-use Plugin\EccubePaymentLite4\Entity\Config;
-use Plugin\EccubePaymentLite4\Entity\RegularCycle;
 use Plugin\EccubePaymentLite4\Repository\ConfigRepository;
 use Plugin\EccubePaymentLite4\Repository\RegularCycleRepository;
 use Plugin\EccubePaymentLite4\Service\CalculateNextDeliveryDateService;
@@ -105,65 +101,11 @@ class AddRegularCycleFormEventSubscriber implements EventSubscriberInterface
         if (!$this->isRegularPaymentService->isRegularPayment($Order)) {
             return;
         }
-        /** @var Config $Config */
-        $Config = $this->configRepository->find(1);
-        /** @var Shipping $Shipping */
-        $Shipping = $Order->getShippings()->first();
-        if (is_null($Shipping->getShippingDeliveryDate())) {
-            $addDay = $Config->getFirstDeliveryDays();
-            $firstDeliveryDate = new \DateTime('+'.$Config->getFirstDeliveryDays().' day');
-        } else {
-            $firstDeliveryDate = $Shipping->getShippingDeliveryDate();
-            $addDay = $this->getDiffShippingDeliveryDate($firstDeliveryDate);
-        }
-        /** @var RegularCycle $RegularCycle */
-        $RegularCycle = $this
-            ->regularCycleRepository
-            ->find($this->session->get('regular_cycle_id'));
-        $nextDeliveryDate = $this
-            ->calculateNextDeliveryDateService
-            ->calc($RegularCycle, $addDay);
-
-        $nextDate = $nextDeliveryDate;
-        // get list delivery date
-        $nextOrderDate = [];
-        $nextOrderDate[0] = clone $firstDeliveryDate;
-        $nextOrderDate[1] = clone $nextDeliveryDate;
-        $limitCycle = 4;
-        for ($i = 2; $i <= $limitCycle; $i++) {
-            $nextDeliveryDate = $this->calculateNextDeliveryDateService->calc_delivery($RegularCycle, clone $nextDeliveryDate);
-            $nextOrderDate[$i] = $nextDeliveryDate;
-        }
-
-        $firstDay = $Config->getFirstDeliveryDays();
-        $deadlineDay = $Config->getRegularOrderDeadline();
-
-        // payment is 代金引換
-        $isCashPayment = false;
-        if (!is_null($Order->getPayment())
-            && $Order->getPayment()->getMethodClass() === Cash::class) {
-            $isCashPayment = true;
-        }
-
         // Get list product item
         $ProductItems = $Order->getProductOrderItems();
         $event->setParameter('ProductItems', $ProductItems);
         $event->setParameter('limitCycle', 5);
-        $event->setParameter('isCashPayment', $isCashPayment);
-        $event->setParameter('firstDay', $firstDay);
-        $event->setParameter('deadlineDay', $deadlineDay);
-        $event->setParameter('nextOrderDate', $nextOrderDate);
         $event->setParameter('label', $form->children['RegularCycles']->vars['data']);
-        $event->setParameter('firstDeliveryDate', $firstDeliveryDate);
-        $event->setParameter('nextDeliveryDate', $nextDate);
         $event->addSnippet('@EccubePaymentLite4/default/Shopping/regular_cycle_confirm_form.twig');
-    }
-
-    private function getDiffShippingDeliveryDate(\DateTime $shippingDeliveryDate): int
-    {
-        $today = new \DateTime('today');
-        $interval = $today->diff($shippingDeliveryDate);
-
-        return (int) $interval->format('%a');
     }
 }

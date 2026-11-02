@@ -9,7 +9,7 @@
                     {% for key, child in form.RegularCycles %}
                         {% set RegularCycle = form.RegularCycles.vars.choices[key].data %}
                         '<div style="display: block;">'+
-                            '<input type="radio" id="shopping_order_RegularCycles_{{ key }}" name="_shopping_order[RegularCycles]" required="required" data-trigger="change" value="{{ RegularCycle.id }}" />'+
+                            '<input type="radio" id="shopping_order_RegularCycles_{{ key }}" name="_shopping_order[RegularCycles]" required="required" data-trigger="change" value="{{ RegularCycle.id }}" {% if form.RegularCycles.vars.value == RegularCycle.id or (form.RegularCycles.vars.value is empty and loop.first) %}checked="checked"{% endif %} />'+
                             '<label for="shopping_order_RegularCycles_{{ key }}">'+
                                 '<span>{{ RegularCycle }}</span>'+
                             '</label>'+
@@ -25,31 +25,15 @@
                 '<div class="ec-rectHeading">'+
                     '<h2>お届け日</h2>'+
                 '</div>'+
-                '<p id="first_delivery_date">'+
+                '<p>'+
+                    '・初回分の発送はご注文日から営業日の2～3日以内にお届けいたします。<br>'+
+                    '・二回目以降のお届けは土日祝や大型連休、その他弊社休業日に伴い、毎月11日〜15日の間でお届け手配をしております。'+
                 '</p>'+
-                '<p id="next_delivery_date">'+
+                '<p>'+
+                    '毎月15日固定のお届けとはなりませんので、あらかじめご了承くださいますようお願い申し上げます。<br>'+
+                    '発送通知にてご確認下さいますようお願い致します。'+
                 '</p>'+
             '</div>'
         );
-        $('input[id^=shopping_order_RegularCycles]').on('change', function() {
-            var shipping_delivery_date = $("#shopping_order_Shippings_0_shipping_delivery_date").val();
-            var regular_cycle = $('[id^=shopping_order_RegularCycles_]:checked').val();
-            $.ajax({
-                url: '{{ url('eccube_payment_lite4_shipping_delivery_date') }}',
-                type: 'POST',
-                data: {
-                    'shipping_delivery_date' : shipping_delivery_date,
-                    'regular_cycle' : regular_cycle,
-                },
-                dataType: 'json',
-            }).done(function(data) {
-                if (data) {
-                    $('#first_delivery_date').text('初回のお届け日は、'+data.first_delivery_date+'です。');
-                    $('#next_delivery_date').text('2回目のお届け日は、'+data.next_delivery_date+'です。');
-                }
-            }).fail(function() {
-                alert('お届け日の取得に失敗しました。');
-            });
-        });
     });
 </script>

@@ -44,45 +44,18 @@
                 {% set charge = item.total_price %}
                 {% endfor %}
             '<p style="margin-top: 10px;margin-bottom: 10px;">お届けサイクル：{{ label }}　{{ limitCycle }}回購入　決済方法： {{ Order.Payment }}({{ charge|price }})</p>' +
-                '<div class="table-responsive-sm">' +
-            '<table class="table table-sm">' +
-                '<tbody>' +
-                '<tr>' +
-                '<th>日程/回数</th>' +
-                {% for i in 1..limitCycle %}
-                    '<td class="align-middle;">{{ loop.index }}</td>' +
-                {% endfor %}
-
-                '</tr>' +
-                '<tr>' +
-                '<th>お届け日</th>' +
-                {% for key, value in nextOrderDate %}
-                    '<td class="align-middle;" style="line-break: auto;">{{ value|date('Y/m/d') }}</td>' +
-                {% endfor %}
-
-                '</tr>' +
-                '<tr>' +
-                    '<th>お支払い時期</th>' +
-                {% set firstDay = firstDay %}
-                {% set deadline = deadlineDay %}
-
-                {% if isCashPayment %}
-                    {% for key, value in nextOrderDate %}
-                        '<td class="align-middle;">{{ value|date('Y/m/d') }}</td>' +
-                    {% endfor %}
-                {% else %}
-                    {% for key, value in nextOrderDate %}
-                        {% if key == 0 %}
-                            '<td class="align-middle;">{{ value|date_modify("-" ~ firstDay  ~ " day")|date('Y/m/d') }}</td>' +
-                        {% else %}
-                            '<td class="align-middle;">{{ value|date_modify("-" ~ deadline  ~ " day")|date('Y/m/d') }}</td>' +
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                '</tr>' +
-                '</tbody>' +
-            '</table>' +
-            '</div>' +
+            '<div class="ec-orderPayment">'+
+                '<div class="ec-rectHeading">'+
+                    '<h2>お届け日</h2>'+
+                '</div>'+
+                '<p>'+
+                    '・初回分の発送はご注文日から営業日の2～3日以内にお届けいたします。<br>'+
+                    '・二回目以降のお届けは土日祝や大型連休、その他弊社休業日に伴い、毎月11日〜15日の間でお届け手配をしております。'+
+                '</p>'+
+                '<p>'+
+                    '毎月15日固定のお届けとはなりませんので、あらかじめご了承くださいますようお願い申し上げます。<br>'+
+                    '発送通知にてご確認下さいますようお願い致します。'+
+                '</p>'+
             '</div>'
         );
     });

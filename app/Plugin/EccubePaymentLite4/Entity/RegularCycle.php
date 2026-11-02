@@ -107,6 +107,11 @@ class RegularCycle extends AbstractEntity
             return $this->getDay().'ヶ月ごと';
         }
         if ($this->getRegularCycleType()->getId() === RegularCycleType::REGULAR_SPECIFIC_DAY_CYCLE) {
+            // 15日は営業日調整で11〜15日にずれるため、お客様向けにこの表記にする
+            if ($this->getDay() == 15) {
+                return '毎月11〜15日';
+            }
+
             return '毎月'.$this->getDay().'日';
         }
         if ($this->getRegularCycleType()->getId() === RegularCycleType::REGULAR_SPECIFIC_WEEK_CYCLE) {
